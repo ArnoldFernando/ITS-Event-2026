@@ -1,0 +1,4105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#050816">
+  <meta name="description"
+    content="CICS Battle of Legends — Information Technology Skills Festival 2026, presented by the Information Technology Society. September 29, 2026.">
+  <title>CICS Battle of Legends — IT Skills Festival 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Oxanium:wght@500;600;700;800&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ================= DESIGN TOKENS ================= */
+    :root {
+      --bg-primary: #050816;
+      --bg-secondary: #0b1022;
+      --surface: #0f1730;
+      --surface-2: #141d3d;
+      --ink: #eaf0ff;
+      --muted: #9aa6cf;
+      --faint: #6b76a3;
+      --gold: #d4af37;
+      --electric-blue: #1e90ff;
+      --cyan: #22e0ff;
+
+      /* team colors */
+      --firewall-green: #22c55e;
+      --malware-red: #ef4444;
+      --mage-blue: #3b82f6;
+      --sniper-yellow: #facc15;
+      --support-white: #f8fafc;
+      --support-silver: #c9d2e3;
+
+      --line: color-mix(in oklab, var(--ink) 14%, transparent);
+      --line-strong: color-mix(in oklab, var(--electric-blue) 45%, transparent);
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 22px 50px -24px rgba(0, 0, 0, .8);
+      --glow-blue: 0 0 26px -6px color-mix(in oklab, var(--electric-blue) 75%, transparent);
+      --radius: 16px;
+      --header-h: 64px;
+
+      --step--1: clamp(.76rem, .72rem + .2vw, .88rem);
+      --step-0: clamp(.95rem, .9rem + .25vw, 1.05rem);
+      --step-1: clamp(1.1rem, 1rem + .5vw, 1.35rem);
+      --step-2: clamp(1.35rem, 1.15rem + 1vw, 1.9rem);
+      --section-title: clamp(1.7rem, 7vw, 3.6rem);
+      --hero-title: clamp(2rem, 10vw, 6rem);
+      --gutter: clamp(1rem, 4vw, 2.2rem);
+      --maxw: 1240px;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      font-family: "Inter", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+      font-size: var(--step-0);
+      line-height: 1.6;
+      background:
+        radial-gradient(1200px 720px at 82% -8%, color-mix(in oklab, var(--electric-blue) 16%, transparent), transparent 60%),
+        radial-gradient(1000px 760px at -8% 6%, color-mix(in oklab, var(--mage-blue) 14%, transparent), transparent 55%),
+        linear-gradient(180deg, var(--bg-primary), var(--bg-secondary) 45%, var(--bg-primary));
+      background-attachment: fixed;
+    }
+
+    body.no-scroll {
+      overflow: hidden
+    }
+
+    img {
+      max-width: 100%;
+      display: block
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    button {
+      font-family: inherit
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
+      font-family: "Oxanium", "Hiragino Sans", sans-serif;
+      line-height: 1.05;
+      letter-spacing: -.01em
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 3px;
+      border-radius: 6px
+    }
+
+    .wrap {
+      width: min(100% - 2*var(--gutter), var(--maxw));
+      margin-inline: auto
+    }
+
+    .eyebrow {
+      font-family: "Oxanium";
+      font-weight: 700;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      font-size: var(--step--1);
+      color: var(--cyan)
+    }
+
+    .mono {
+      font-family: "Oxanium";
+      letter-spacing: .14em;
+      text-transform: uppercase
+    }
+
+    /* HUD corner brackets used across cards */
+    .hud {
+      position: relative
+    }
+
+    .hud::before,
+    .hud::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--line-strong);
+      opacity: .7;
+      pointer-events: none
+    }
+
+    .hud::before {
+      top: 8px;
+      left: 8px;
+      border-right: 0;
+      border-bottom: 0
+    }
+
+    .hud::after {
+      bottom: 8px;
+      right: 8px;
+      border-left: 0;
+      border-top: 0
+    }
+
+    /* ================= LOADING SCREEN ================= */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: grid;
+      place-items: center;
+      background: var(--bg-primary);
+      transition: opacity .6s ease, visibility .6s ease;
+      text-align: center;
+      padding: 2rem
+    }
+
+    #loader.hide {
+      opacity: 0;
+      visibility: hidden
+    }
+
+    .load-mark {
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 1.2rem;
+      filter: drop-shadow(var(--glow-blue))
+    }
+
+    .load-mark path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      pathLength: 1;
+      animation: draw 1.6s ease forwards
+    }
+
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0
+      }
+    }
+
+    .load-title {
+      font-family: "Orbitron";
+      font-weight: 900;
+      font-size: clamp(1.6rem, 8vw, 2.6rem);
+      letter-spacing: .12em;
+      background: linear-gradient(100deg, #fff, var(--cyan), var(--electric-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .load-org {
+      font-family: "Oxanium";
+      font-weight: 700;
+      letter-spacing: .24em;
+      color: var(--muted);
+      font-size: var(--step--1);
+      margin-top: .4rem;
+      text-transform: uppercase
+    }
+
+    .load-status {
+      margin-top: 1.4rem;
+      font-family: "Oxanium";
+      letter-spacing: .18em;
+      color: var(--cyan);
+      font-size: var(--step--1);
+      text-transform: uppercase
+    }
+
+    .load-bar {
+      width: min(80vw, 260px);
+      height: 4px;
+      border-radius: 99px;
+      background: var(--surface);
+      margin: 1rem auto 0;
+      overflow: hidden
+    }
+
+    .load-bar i {
+      display: block;
+      height: 100%;
+      width: 40%;
+      background: linear-gradient(90deg, var(--cyan), var(--electric-blue));
+      animation: slide 1.1s ease-in-out infinite
+    }
+
+    @keyframes slide {
+      0% {
+        transform: translateX(-120%)
+      }
+
+      100% {
+        transform: translateX(320%)
+      }
+    }
+
+    /* ================= HEADER / NAV ================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      padding-top: env(safe-area-inset-top);
+      transition: background .3s, border-color .3s, backdrop-filter .3s;
+      border-bottom: 1px solid transparent
+    }
+
+    .site-header.scrolled {
+      background: color-mix(in oklab, var(--bg-primary) 72%, transparent);
+      backdrop-filter: blur(16px) saturate(1.2);
+      border-bottom-color: var(--line)
+    }
+
+    .header-bar {
+      height: var(--header-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      width: min(100%, var(--maxw));
+      margin-inline: auto;
+      padding-inline: var(--gutter)
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      min-width: 0
+    }
+
+    .brand-badges {
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      flex: none
+    }
+
+    .badge-logo {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      border: 1px solid var(--line-strong);
+      background: color-mix(in oklab, var(--electric-blue) 12%, transparent);
+      font-family: "Orbitron";
+      font-weight: 800;
+      font-size: .62rem;
+      color: var(--cyan);
+      letter-spacing: .02em
+    }
+
+    .brand-txt {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      min-width: 0
+    }
+
+    .brand-txt b {
+      font-family: "Orbitron";
+      font-weight: 800;
+      font-size: .82rem;
+      letter-spacing: .06em;
+      white-space: nowrap
+    }
+
+    .brand-txt span {
+      font-size: .58rem;
+      letter-spacing: .24em;
+      color: var(--muted);
+      text-transform: uppercase;
+      white-space: nowrap;
+      margin-top: 2px
+    }
+
+    .desktop-nav {
+      display: none;
+      align-items: center;
+      gap: .1rem
+    }
+
+    .desktop-nav a {
+      font-family: "Oxanium";
+      font-weight: 600;
+      font-size: .82rem;
+      letter-spacing: .04em;
+      padding: .5rem .62rem;
+      border-radius: 8px;
+      color: var(--muted);
+      position: relative;
+      transition: color .2s;
+      white-space: nowrap
+    }
+
+    .desktop-nav a::after {
+      content: "";
+      position: absolute;
+      left: .62rem;
+      right: .62rem;
+      bottom: .3rem;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--electric-blue));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .25s
+    }
+
+    .desktop-nav a:hover,
+    .desktop-nav a:focus-visible,
+    .desktop-nav a.active {
+      color: var(--ink)
+    }
+
+    .desktop-nav a.active::after,
+    .desktop-nav a:hover::after {
+      transform: scaleX(1)
+    }
+
+    .btn {
+      --bc: var(--electric-blue);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      font-family: "Oxanium";
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-size: .82rem;
+      min-height: 44px;
+      padding: .65rem 1.15rem;
+      cursor: pointer;
+      color: var(--bg-primary);
+      background: linear-gradient(120deg, var(--cyan), var(--electric-blue));
+      border: none;
+      border-radius: 11px;
+      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+      box-shadow: var(--glow-blue);
+      transition: transform .15s, filter .2s
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      filter: brightness(1.12)
+    }
+
+    .btn:active {
+      transform: scale(.96)
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--line-strong);
+      box-shadow: none
+    }
+
+    .btn.ghost:hover,
+    .btn.ghost:focus-visible {
+      border-color: var(--cyan);
+      background: color-mix(in oklab, var(--cyan) 10%, transparent)
+    }
+
+    .btn.gold {
+      background: linear-gradient(120deg, var(--gold), #b6902a);
+      color: #1a1400;
+      box-shadow: 0 0 24px -6px color-mix(in oklab, var(--gold) 70%, transparent)
+    }
+
+    .btn.block {
+      width: 100%
+    }
+
+    .btn.sm {
+      min-height: 40px;
+      font-size: .74rem;
+      padding: .5rem .85rem
+    }
+
+    .hamburger {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 48px;
+      height: 48px;
+      padding: 0 12px;
+      background: transparent;
+      border: 1.5px solid var(--line-strong);
+      border-radius: 11px;
+      cursor: pointer;
+      flex: none
+    }
+
+    .hamburger span {
+      display: block;
+      height: 2.5px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .3s, opacity .2s
+    }
+
+    .hamburger[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg)
+    }
+
+    .hamburger[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0
+    }
+
+    .hamburger[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg)
+    }
+
+    /* Mobile menu */
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 95;
+      background: rgba(3, 5, 14, .6);
+      backdrop-filter: blur(2px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .3s, visibility .3s
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      visibility: visible
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 100;
+      height: 100dvh;
+      width: min(86vw, 370px);
+      padding: calc(env(safe-area-inset-top) + 1.1rem) 1.3rem calc(env(safe-area-inset-bottom) + 1.4rem);
+      background: linear-gradient(200deg, #0a1030, #050816);
+      border-left: 1px solid var(--line-strong);
+      transform: translateX(105%);
+      transition: transform .34s cubic-bezier(.4, 0, .2, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      overflow-y: auto;
+      box-shadow: -30px 0 60px -20px rgba(0, 0, 0, .85)
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0)
+    }
+
+    .mm-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .mm-close {
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      color: var(--ink);
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1
+    }
+
+    .mm-links {
+      display: flex;
+      flex-direction: column;
+      gap: .2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0
+    }
+
+    .mm-links a {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      min-height: 54px;
+      padding: .5rem 1rem;
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: 1.12rem;
+      letter-spacing: .03em;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      transition: background .2s, border-color .2s
+    }
+
+    .mm-links a .num {
+      font-size: .7rem;
+      color: var(--cyan);
+      width: 1.6rem
+    }
+
+    .mm-links a:hover,
+    .mm-links a:focus-visible,
+    .mm-links a:active {
+      background: color-mix(in oklab, var(--electric-blue) 14%, transparent);
+      border-color: var(--line-strong)
+    }
+
+    .mm-cta {
+      margin-top: auto
+    }
+
+    /* ================= DECORATIVE MLBB HERO BG ================= */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden
+    }
+
+    .hero-bg .fig {
+      position: absolute;
+      bottom: -4%;
+      height: 118%;
+      opacity: .4;
+      filter: drop-shadow(0 0 40px rgba(0, 0, 0, .6))
+    }
+
+    .grid-lines {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: .5;
+      pointer-events: none;
+      background-image: linear-gradient(color-mix(in oklab, var(--electric-blue) 8%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in oklab, var(--electric-blue) 8%, transparent) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: radial-gradient(120% 90% at 50% 0, #000, transparent 78%)
+    }
+
+    .overlay-dark {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: rgba(4, 10, 25, .55)
+    }
+
+    /* ================= HERO ================= */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: calc(100dvh - var(--header-h));
+      display: flex;
+      align-items: center;
+      padding-block: clamp(1.6rem, 5vw, 3rem) clamp(2.5rem, 7vw, 4rem)
+    }
+
+    #fx {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      gap: 1.1rem;
+      text-align: center;
+      justify-items: center;
+      width: 100%
+    }
+
+    .hero .fig-wrap {
+      order: 7;
+      position: relative;
+      width: min(78%, 360px);
+      margin-top: .4rem
+    }
+
+    .presents {
+      order: 1
+    }
+
+    .hero-title {
+      order: 2;
+      font-family: "Orbitron";
+      font-weight: 900;
+      font-size: var(--hero-title);
+      line-height: .92;
+      text-wrap: balance;
+      background: linear-gradient(100deg, #fff 12%, var(--cyan) 48%, var(--electric-blue) 92%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 46px color-mix(in oklab, var(--electric-blue) 26%, transparent)
+    }
+
+    .hero-fest {
+      order: 3;
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: var(--step-1);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--gold)
+    }
+
+    .hero-tag {
+      order: 4;
+      font-family: "Oxanium";
+      font-weight: 600;
+      letter-spacing: .14em;
+      color: var(--ink);
+      text-transform: uppercase;
+      font-size: var(--step-0)
+    }
+
+    .hero-tag .sep {
+      color: var(--cyan)
+    }
+
+    .hero-date {
+      order: 5;
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      font-family: "Orbitron";
+      font-weight: 700;
+      letter-spacing: .1em;
+      padding: .5rem 1.1rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      color: var(--cyan);
+      font-size: var(--step-0);
+      background: color-mix(in oklab, var(--electric-blue) 8%, transparent)
+    }
+
+    .hero-community {
+      order: 6;
+      font-family: "Oxanium";
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .06em
+    }
+
+    .hero-cta {
+      order: 6;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      justify-content: center;
+      width: 100%;
+      max-width: 460px
+    }
+
+    .hero-cta .btn {
+      flex: 1 1 190px
+    }
+
+    .sysstatus {
+      order: 1;
+      font-family: "Oxanium";
+      font-size: .66rem;
+      letter-spacing: .22em;
+      color: var(--firewall-green);
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem
+    }
+
+    .sysstatus .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--firewall-green);
+      box-shadow: 0 0 8px var(--firewall-green);
+      animation: pulse 1.6s ease-in-out infinite
+    }
+
+    @keyframes pulse {
+      50% {
+        opacity: .4
+      }
+    }
+
+    /* ================= COUNTDOWN ================= */
+    .countdown-band {
+      padding-block: clamp(1.4rem, 4vw, 2.2rem)
+    }
+
+    .countdown-box {
+      background: linear-gradient(160deg, var(--surface), var(--bg-secondary));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: clamp(1.2rem, 4vw, 2rem);
+      position: relative;
+      overflow: hidden
+    }
+
+    .countdown-box .eyebrow {
+      display: block;
+      text-align: center;
+      margin-bottom: 1rem
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .7rem;
+      max-width: 520px;
+      margin-inline: auto
+    }
+
+    .cd-cell {
+      position: relative;
+      background: linear-gradient(180deg, var(--surface-2), var(--bg-secondary));
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1rem .5rem;
+      text-align: center;
+      overflow: hidden
+    }
+
+    .cd-cell::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--electric-blue))
+    }
+
+    .cd-num {
+      font-family: "Orbitron";
+      font-weight: 800;
+      font-size: clamp(2rem, 10vw, 3.2rem);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      text-shadow: var(--glow-blue)
+    }
+
+    .cd-lab {
+      font-family: "Oxanium";
+      font-weight: 600;
+      letter-spacing: .2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: .4rem;
+      font-size: var(--step--1)
+    }
+
+    .cd-live {
+      display: none;
+      text-align: center;
+      font-family: "Orbitron";
+      font-weight: 800;
+      letter-spacing: .14em;
+      color: var(--gold);
+      font-size: var(--step-2);
+      text-transform: uppercase
+    }
+
+    /* ================= SECTIONS ================= */
+    section[id] {
+      scroll-margin-top: calc(var(--header-h) + 10px)
+    }
+
+    .band {
+      position: relative;
+      padding-block: clamp(2.6rem, 8vw, 5rem);
+      overflow: hidden
+    }
+
+    .band .fig-bg {
+      position: absolute;
+      z-index: 0;
+      opacity: .32;
+      pointer-events: none;
+      filter: blur(.5px)
+    }
+
+    .band .inner {
+      position: relative;
+      z-index: 2
+    }
+
+    .sec-head {
+      display: grid;
+      gap: .5rem;
+      margin-bottom: clamp(1.4rem, 4vw, 2.4rem);
+      max-width: 62ch
+    }
+
+    .sec-head.center {
+      justify-items: center;
+      text-align: center;
+      margin-inline: auto
+    }
+
+    .section-title {
+      font-family: "Orbitron";
+      font-weight: 800;
+      font-size: var(--section-title);
+      text-wrap: balance;
+      background: linear-gradient(100deg, #fff, var(--cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .sec-desc {
+      color: var(--muted);
+      max-width: 58ch
+    }
+
+    /* ================= ABOUT ================= */
+    .about-grid {
+      display: grid;
+      gap: 1rem
+    }
+
+    .pillar {
+      background: linear-gradient(160deg, var(--surface), var(--bg-secondary));
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.2rem
+    }
+
+    .pillar .ic {
+      width: 44px;
+      height: 44px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      margin-bottom: .7rem;
+      background: color-mix(in oklab, var(--electric-blue) 14%, transparent);
+      border: 1px solid var(--line-strong);
+      color: var(--cyan)
+    }
+
+    .pillar h3 {
+      font-size: var(--step-1);
+      margin-bottom: .3rem
+    }
+
+    .pillar p {
+      color: var(--muted);
+      font-size: var(--step-0);
+      margin: 0
+    }
+
+    /* ================= ACTIVITIES ================= */
+    .act-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem
+    }
+
+    .act-card {
+      position: relative;
+      background: linear-gradient(160deg, var(--surface), var(--bg-secondary));
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.3rem;
+      overflow: hidden;
+      transition: transform .2s, border-color .25s, box-shadow .25s;
+      display: flex;
+      flex-direction: column;
+      gap: .55rem
+    }
+
+    .act-card:hover,
+    .act-card:focus-within {
+      transform: translateY(-4px);
+      border-color: var(--line-strong);
+      box-shadow: 0 20px 40px -24px color-mix(in oklab, var(--electric-blue) 60%, transparent)
+    }
+
+    .act-ic {
+      width: 52px;
+      height: 52px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: color-mix(in oklab, var(--electric-blue) 14%, transparent);
+      border: 1px solid var(--line-strong);
+      color: var(--cyan)
+    }
+
+    .act-card h3 {
+      font-size: var(--step-1)
+    }
+
+    .act-micro {
+      font-family: "Oxanium";
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: .68rem;
+      color: var(--gold)
+    }
+
+    .act-card p {
+      color: var(--muted);
+      font-size: var(--step-0);
+      margin: 0
+    }
+
+    .act-tag {
+      align-self: flex-start;
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: .64rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: .24rem .6rem;
+      margin-top: auto
+    }
+
+    /* ================= TEAM CARDS ================= */
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.1rem
+    }
+
+    .team-card {
+      position: relative;
+      border-radius: 18px;
+      padding: 1.3rem 1.2rem 1.4rem;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+      background: linear-gradient(165deg, var(--surface), var(--bg-secondary));
+      border: 1px solid var(--line);
+      transition: transform .2s, box-shadow .25s, border-color .25s;
+      --tc: var(--electric-blue)
+    }
+
+    .team-card .tfig {
+      position: absolute;
+      top: -6%;
+      right: -14%;
+      height: 112%;
+      opacity: .34;
+      pointer-events: none;
+      z-index: 0
+    }
+
+    .team-card>* {
+      position: relative;
+      z-index: 1
+    }
+
+    .team-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      pointer-events: none;
+      z-index: 0;
+      box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--tc) 32%, transparent), inset 0 -70px 70px -55px color-mix(in oklab, var(--tc) 60%, transparent)
+    }
+
+    .team-card:hover,
+    .team-card:focus-within {
+      transform: translateY(-5px);
+      border-color: color-mix(in oklab, var(--tc) 55%, transparent);
+      box-shadow: 0 24px 46px -26px color-mix(in oklab, var(--tc) 70%, transparent)
+    }
+
+    .tc-top {
+      display: flex;
+      align-items: center;
+      gap: .7rem
+    }
+
+    .tc-logo {
+      width: 52px;
+      height: 52px;
+      flex: none;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: color-mix(in oklab, var(--tc) 16%, transparent);
+      border: 1px solid color-mix(in oklab, var(--tc) 42%, transparent)
+    }
+
+    .tc-role {
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: .66rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--tc)
+    }
+
+    .tc-name {
+      font-family: "Orbitron";
+      font-weight: 800;
+      font-size: var(--step-2);
+      line-height: 1;
+      max-width: 80%
+    }
+
+    .tc-color {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: var(--step--1);
+      color: var(--muted)
+    }
+
+    .tc-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--tc);
+      box-shadow: 0 0 10px var(--tc)
+    }
+
+    .tc-slogan {
+      font-family: "Oxanium";
+      font-style: italic;
+      color: var(--ink);
+      opacity: .92;
+      border-left: 2px solid var(--tc);
+      padding-left: .7rem
+    }
+
+    .tc-desc {
+      color: var(--muted);
+      font-size: var(--step-0);
+      margin: 0
+    }
+
+    .tc-counts {
+      display: flex;
+      gap: .6rem;
+      flex-wrap: wrap
+    }
+
+    .tc-count {
+      flex: 1 1 auto;
+      min-width: 110px;
+      background: color-mix(in oklab, var(--tc) 10%, transparent);
+      border: 1px solid color-mix(in oklab, var(--tc) 28%, transparent);
+      border-radius: 11px;
+      padding: .55rem .7rem;
+      text-align: center
+    }
+
+    .tc-count b {
+      display: block;
+      font-family: "Orbitron";
+      font-weight: 800;
+      font-size: var(--step-1);
+      color: var(--ink)
+    }
+
+    .tc-count span {
+      font-family: "Oxanium";
+      font-size: .62rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted)
+    }
+
+    .tc-btn {
+      margin-top: .2rem;
+      width: 100%;
+      --bc: var(--tc);
+      background: linear-gradient(120deg, var(--tc), color-mix(in oklab, var(--tc) 55%, #000));
+      color: #04101f;
+      box-shadow: 0 0 22px -8px var(--tc)
+    }
+
+    .tc-btn.lightfx {
+      color: #0a1024
+    }
+
+    /* ================= TEAM DETAIL (drawer/modal) ================= */
+    .sheet-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 110;
+      background: rgba(3, 5, 12, .74);
+      backdrop-filter: blur(3px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .3s, visibility .3s
+    }
+
+    .sheet-overlay.open {
+      opacity: 1;
+      visibility: visible
+    }
+
+    .sheet {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 115;
+      height: 94dvh;
+      --tc: var(--electric-blue);
+      background: linear-gradient(180deg, #0a1026, #050816);
+      border-top: 2px solid var(--tc);
+      border-radius: 20px 20px 0 0;
+      transform: translateY(102%);
+      transition: transform .4s cubic-bezier(.4, 0, .2, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -30px 60px -20px rgba(0, 0, 0, .85);
+      overflow: hidden
+    }
+
+    .sheet.open {
+      transform: translateY(0)
+    }
+
+    .sheet .sfig {
+      position: absolute;
+      top: 0;
+      right: -10%;
+      height: 60%;
+      opacity: .32;
+      pointer-events: none;
+      z-index: 0
+    }
+
+    .sheet .sfade {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: linear-gradient(180deg, rgba(5, 8, 22, .35), rgba(5, 8, 22, .9) 55%)
+    }
+
+    .sheet-handle {
+      width: 44px;
+      height: 5px;
+      border-radius: 99px;
+      background: var(--faint);
+      margin: .7rem auto .2rem;
+      position: relative;
+      z-index: 2
+    }
+
+    .sheet-head {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: .5rem var(--gutter) 1rem;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .sheet-head::after {
+      content: "";
+      position: absolute;
+      left: var(--gutter);
+      bottom: -1px;
+      width: 80px;
+      height: 2px;
+      background: var(--tc)
+    }
+
+    .sheet-title {
+      font-family: "Orbitron";
+      font-weight: 800;
+      font-size: var(--step-2);
+      line-height: 1
+    }
+
+    .sheet-role {
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: .66rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--tc);
+      margin-top: .35rem;
+      display: block
+    }
+
+    .sheet-slogan {
+      font-family: "Oxanium";
+      font-style: italic;
+      color: var(--muted);
+      margin-top: .4rem
+    }
+
+    .sheet-close {
+      flex: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1.5px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1
+    }
+
+    .sheet-body {
+      position: relative;
+      z-index: 2;
+      padding: 1.1rem var(--gutter) calc(env(safe-area-inset-bottom) + 2rem);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      display: grid;
+      gap: 1.3rem
+    }
+
+    .count-row {
+      display: flex;
+      gap: .6rem;
+      flex-wrap: wrap
+    }
+
+    .count-pill {
+      flex: 1 1 130px;
+      background: color-mix(in oklab, var(--tc) 12%, transparent);
+      border: 1px solid color-mix(in oklab, var(--tc) 32%, transparent);
+      border-radius: 12px;
+      padding: .7rem;
+      text-align: center
+    }
+
+    .count-pill b {
+      display: block;
+      font-family: "Orbitron";
+      font-weight: 800;
+      font-size: var(--step-2);
+      color: var(--ink)
+    }
+
+    .count-pill span {
+      font-family: "Oxanium";
+      font-size: .64rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted)
+    }
+
+    .roster-label {
+      font-family: "Oxanium";
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-size: var(--step-0);
+      display: flex;
+      align-items: center;
+      gap: .6rem
+    }
+
+    .roster-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line)
+    }
+
+    .faculty-list {
+      list-style: none;
+      margin: .7rem 0 0;
+      padding: 0;
+      display: grid;
+      gap: .5rem
+    }
+
+    .faculty-list li {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      padding: .65rem .8rem;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: color-mix(in oklab, var(--surface) 70%, transparent)
+    }
+
+    .faculty-list .av {
+      flex: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      font-family: "Orbitron";
+      font-weight: 800;
+      font-size: .72rem;
+      color: #04101f;
+      background: linear-gradient(135deg, var(--tc), color-mix(in oklab, var(--tc) 40%, #fff))
+    }
+
+    .faculty-list .fn {
+      font-family: "Oxanium";
+      font-weight: 700
+    }
+
+    .faculty-list .fr {
+      font-size: .72rem;
+      color: var(--muted)
+    }
+
+    .search-wrap {
+      position: relative;
+      margin-top: .7rem
+    }
+
+    .search-wrap input {
+      width: 100%;
+      min-height: 48px;
+      padding: .7rem 1rem .7rem 2.6rem;
+      border-radius: 12px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--ink);
+      font-family: "Inter";
+      font-size: var(--step-0)
+    }
+
+    .search-wrap input::placeholder {
+      color: var(--faint)
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      left: .85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--faint)
+    }
+
+    .acc {
+      margin-top: .7rem;
+      display: grid;
+      gap: .55rem
+    }
+
+    .acc-item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: color-mix(in oklab, var(--surface) 60%, transparent)
+    }
+
+    .acc-head {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .8rem;
+      min-height: 52px;
+      padding: .7rem 1rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--ink);
+      text-align: left
+    }
+
+    .acc-head .sec-name {
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: var(--step-0);
+      letter-spacing: .04em
+    }
+
+    .acc-head .sec-meta {
+      display: flex;
+      align-items: center;
+      gap: .7rem
+    }
+
+    .acc-head .cnt {
+      font-family: "Oxanium";
+      font-size: .68rem;
+      letter-spacing: .1em;
+      color: var(--muted);
+      text-transform: uppercase
+    }
+
+    .acc-head .chev {
+      transition: transform .28s;
+      color: var(--cyan)
+    }
+
+    .acc-item.open .acc-head .chev {
+      transform: rotate(180deg)
+    }
+
+    .acc-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .32s ease
+    }
+
+    .acc-list {
+      list-style: none;
+      margin: 0;
+      padding: .2rem 1rem 1rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: .15rem;
+      counter-reset: stud
+    }
+
+    .acc-list li {
+      counter-increment: stud;
+      display: flex;
+      gap: .7rem;
+      padding: .4rem .2rem;
+      border-bottom: 1px dashed var(--line);
+      font-size: var(--step-0)
+    }
+
+    .acc-list li::before {
+      content: counter(stud);
+      font-family: "Oxanium";
+      font-weight: 700;
+      color: var(--faint);
+      min-width: 1.7rem;
+      font-size: .8rem
+    }
+
+    .acc-list li:last-child {
+      border-bottom: none
+    }
+
+    .no-results {
+      color: var(--muted);
+      font-style: italic;
+      padding: .6rem 0
+    }
+
+    /* ================= PARTICIPANTS DIRECTORY ================= */
+    .team-tabs {
+      display: flex;
+      gap: .5rem;
+      overflow-x: auto;
+      padding: .3rem .1rem 1rem;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory
+    }
+
+    .team-tabs::-webkit-scrollbar {
+      height: 6px
+    }
+
+    .team-tabs::-webkit-scrollbar-thumb {
+      background: var(--line-strong);
+      border-radius: 99px
+    }
+
+    .team-tab {
+      scroll-snap-align: start;
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      min-height: 44px;
+      padding: .5rem .9rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--line);
+      background: var(--surface);
+      color: var(--muted);
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: .8rem;
+      letter-spacing: .04em;
+      cursor: pointer;
+      transition: all .2s;
+      --tc: var(--electric-blue)
+    }
+
+    .team-tab .tdot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--tc);
+      box-shadow: 0 0 8px var(--tc)
+    }
+
+    .team-tab[aria-selected="true"] {
+      color: var(--ink);
+      border-color: var(--tc);
+      background: color-mix(in oklab, var(--tc) 14%, transparent);
+      box-shadow: 0 0 18px -8px var(--tc)
+    }
+
+    #participantPanel {
+      background: linear-gradient(160deg, var(--surface), var(--bg-secondary));
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: clamp(1.1rem, 4vw, 1.8rem);
+      --tc: var(--electric-blue)
+    }
+
+    /* ================= TEAM SELECTOR (ambient) ================= */
+    .selector {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      transition: background .5s
+    }
+
+    .selector .amb {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: .9;
+      transition: background .6s;
+      background: radial-gradient(120% 120% at 80% 10%, color-mix(in oklab, var(--electric-blue) 22%, transparent), transparent 60%)
+    }
+
+    .selector .selfig {
+      position: absolute;
+      right: -8%;
+      bottom: -6%;
+      height: 105%;
+      opacity: .4;
+      z-index: 0;
+      pointer-events: none;
+      transition: opacity .4s
+    }
+
+    .selector-inner {
+      position: relative;
+      z-index: 2;
+      padding: clamp(1.2rem, 5vw, 2.2rem);
+      display: grid;
+      gap: 1.2rem
+    }
+
+    .chip-row {
+      display: flex;
+      gap: .6rem;
+      overflow-x: auto;
+      padding: .2rem .1rem .6rem;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory
+    }
+
+    .chip-row::-webkit-scrollbar {
+      height: 6px
+    }
+
+    .chip-row::-webkit-scrollbar-thumb {
+      background: var(--line-strong);
+      border-radius: 99px
+    }
+
+    .color-chip {
+      scroll-snap-align: center;
+      flex: 0 0 auto;
+      width: 118px;
+      min-height: 44px;
+      cursor: pointer;
+      border-radius: 15px;
+      padding: .9rem .6rem;
+      display: grid;
+      gap: .4rem;
+      justify-items: center;
+      text-align: center;
+      background: color-mix(in oklab, var(--surface-2) 80%, transparent);
+      border: 2px solid var(--line);
+      color: var(--ink);
+      transition: transform .18s, border-color .2s, box-shadow .2s;
+      --tc: var(--electric-blue)
+    }
+
+    .color-chip .swatch {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--tc);
+      box-shadow: 0 0 14px var(--tc)
+    }
+
+    .color-chip .cn {
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: .72rem;
+      line-height: 1.1
+    }
+
+    .color-chip .col {
+      font-family: "Oxanium";
+      font-size: .6rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted)
+    }
+
+    .color-chip:hover,
+    .color-chip:focus-visible,
+    .color-chip:active {
+      transform: translateY(-3px);
+      border-color: color-mix(in oklab, var(--tc) 55%, transparent)
+    }
+
+    .color-chip[aria-pressed="true"] {
+      border-color: var(--tc);
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 24px -6px var(--tc)
+    }
+
+    .sel-info {
+      display: grid;
+      gap: .6rem;
+      min-height: 120px
+    }
+
+    .sel-role {
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: .68rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--cyan)
+    }
+
+    .sel-name {
+      font-family: "Orbitron";
+      font-weight: 800;
+      font-size: var(--step-2)
+    }
+
+    .sel-slogan {
+      font-family: "Oxanium";
+      font-style: italic;
+      color: var(--muted)
+    }
+
+    .sel-counts {
+      display: flex;
+      gap: .6rem;
+      flex-wrap: wrap
+    }
+
+    .sel-counts .p {
+      background: color-mix(in oklab, var(--ink) 8%, transparent);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: .4rem .8rem;
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: .8rem
+    }
+
+    .sel-counts .p b {
+      color: var(--cyan)
+    }
+
+    /* ================= EVENT DETAILS ================= */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: .9rem
+    }
+
+    .detail-card {
+      display: flex;
+      gap: .9rem;
+      align-items: flex-start;
+      background: linear-gradient(160deg, var(--surface), var(--bg-secondary));
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 1rem 1.1rem
+    }
+
+    .detail-card .ic {
+      flex: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: color-mix(in oklab, var(--gold) 16%, transparent);
+      border: 1px solid color-mix(in oklab, var(--gold) 38%, transparent);
+      color: var(--gold)
+    }
+
+    .detail-card .lab {
+      font-family: "Oxanium";
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-size: .66rem;
+      color: var(--muted)
+    }
+
+    .detail-card .val {
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: var(--step-1);
+      margin-top: 2px
+    }
+
+    .tba {
+      color: var(--gold)
+    }
+
+    /* ================= TIMELINE ================= */
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: .2rem;
+      padding-left: 1.4rem
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--cyan), var(--electric-blue), transparent)
+    }
+
+    .tl-item {
+      position: relative;
+      padding: .7rem 0 .7rem .4rem
+    }
+
+    .tl-item::before {
+      content: "";
+      position: absolute;
+      left: -1.4rem;
+      top: 1rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--bg-primary);
+      border: 2px solid var(--cyan);
+      box-shadow: 0 0 10px var(--cyan)
+    }
+
+    .tl-phase {
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: var(--step-0)
+    }
+
+    .tl-time {
+      font-family: "Oxanium";
+      font-size: .72rem;
+      letter-spacing: .08em;
+      color: var(--muted);
+      text-transform: uppercase
+    }
+
+    /* ================= GALLERY ================= */
+    .filter-row {
+      display: flex;
+      gap: .5rem;
+      overflow-x: auto;
+      padding: .2rem .1rem 1rem;
+      -webkit-overflow-scrolling: touch
+    }
+
+    .filter-row::-webkit-scrollbar {
+      height: 6px
+    }
+
+    .filter-row::-webkit-scrollbar-thumb {
+      background: var(--line-strong);
+      border-radius: 99px
+    }
+
+    .filter-btn {
+      flex: 0 0 auto;
+      min-height: 40px;
+      padding: .45rem .9rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--line);
+      background: var(--surface);
+      color: var(--muted);
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: .74rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all .2s
+    }
+
+    .filter-btn[aria-pressed="true"] {
+      color: var(--ink);
+      border-color: var(--cyan);
+      background: color-mix(in oklab, var(--cyan) 12%, transparent)
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .7rem
+    }
+
+    .gitem {
+      position: relative;
+      aspect-ratio: 4/3;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      background: var(--surface);
+      transition: transform .2s, box-shadow .2s
+    }
+
+    .gitem:hover,
+    .gitem:focus-visible {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px -16px color-mix(in oklab, var(--electric-blue) 60%, transparent)
+    }
+
+    .gitem svg {
+      width: 100%;
+      height: 100%
+    }
+
+    .gitem .cap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: .5rem .6rem;
+      background: linear-gradient(180deg, transparent, rgba(4, 8, 20, .85));
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: .7rem;
+      letter-spacing: .06em;
+      text-transform: uppercase
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 130;
+      display: grid;
+      place-items: center;
+      padding: 1.4rem;
+      background: rgba(3, 5, 12, .86);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .3s, visibility .3s
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      visibility: visible
+    }
+
+    .lightbox .frame {
+      width: min(92vw, 760px);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: var(--surface)
+    }
+
+    .lightbox .frame svg {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16/10
+    }
+
+    .lightbox .lbcap {
+      padding: .8rem 1rem;
+      font-family: "Oxanium";
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-align: center
+    }
+
+    .lightbox .lbclose {
+      position: absolute;
+      top: calc(env(safe-area-inset-top) + 1rem);
+      right: 1rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      border: 1.5px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 1.5rem;
+      cursor: pointer
+    }
+
+    /* ================= ORGANIZER ================= */
+    .org-card {
+      background: linear-gradient(160deg, var(--surface), var(--bg-secondary));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: clamp(1.3rem, 5vw, 2.2rem);
+      text-align: center;
+      position: relative;
+      overflow: hidden
+    }
+
+    .org-logos {
+      display: flex;
+      gap: .8rem;
+      justify-content: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap
+    }
+
+    .org-logo {
+      width: 76px;
+      height: 76px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      background: color-mix(in oklab, var(--electric-blue) 12%, transparent);
+      font-family: "Orbitron";
+      font-weight: 800;
+      color: var(--cyan);
+      letter-spacing: .02em;
+      font-size: .9rem
+    }
+
+    .org-officers {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .6rem;
+      margin-top: 1.4rem
+    }
+
+    .officer {
+      background: color-mix(in oklab, var(--surface-2) 70%, transparent);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: .8rem
+    }
+
+    .officer .av {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      margin: 0 auto .5rem;
+      background: linear-gradient(135deg, var(--cyan), var(--electric-blue));
+      display: grid;
+      place-items: center;
+      font-family: "Orbitron";
+      font-weight: 800;
+      color: #04101f;
+      font-size: .8rem
+    }
+
+    .officer .on {
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: .82rem
+    }
+
+    .officer .or {
+      font-size: .68rem;
+      color: var(--muted)
+    }
+
+    /* ================= FINAL CTA ================= */
+    .final-cta {
+      position: relative;
+      text-align: center;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: linear-gradient(160deg, #0a1230, #050816);
+      padding: clamp(2rem, 7vw, 3.6rem) clamp(1.2rem, 5vw, 2.4rem)
+    }
+
+    .final-cta .silhouettes {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      opacity: .3;
+      pointer-events: none
+    }
+
+    .final-cta .silhouettes svg {
+      height: 80%
+    }
+
+    .final-cta .inner2 {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      gap: 1rem;
+      justify-items: center
+    }
+
+    .final-title {
+      font-family: "Orbitron";
+      font-weight: 900;
+      font-size: var(--section-title);
+      background: linear-gradient(100deg, #fff, var(--gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .color-strip {
+      display: flex;
+      gap: .5rem;
+      justify-content: center
+    }
+
+    .color-strip span {
+      width: 42px;
+      height: 8px;
+      border-radius: 99px
+    }
+
+    /* ================= FOOTER ================= */
+    .site-footer {
+      border-top: 1px solid var(--line);
+      padding-block: 2.6rem;
+      padding-bottom: calc(env(safe-area-inset-bottom) + 2.6rem);
+      margin-top: 2rem
+    }
+
+    .foot-grid {
+      display: grid;
+      gap: 1.6rem
+    }
+
+    .foot-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem 1.3rem;
+      font-family: "Oxanium";
+      font-weight: 600
+    }
+
+    .foot-links a {
+      color: var(--muted)
+    }
+
+    .foot-links a:hover {
+      color: var(--cyan)
+    }
+
+    .foot-social {
+      display: flex;
+      gap: .6rem
+    }
+
+    .foot-social a {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      transition: all .2s
+    }
+
+    .foot-social a:hover {
+      color: var(--cyan);
+      border-color: var(--line-strong)
+    }
+
+    .disclaimer {
+      margin-top: 1.4rem;
+      padding: 1rem;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      color: var(--faint);
+      font-size: .74rem;
+      line-height: 1.6
+    }
+
+    .copyright {
+      margin-top: 1.2rem;
+      color: var(--faint);
+      font-size: .76rem
+    }
+
+    /* ================= SCROLL REVEAL ================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px)
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+      transition: opacity .6s ease, transform .7s cubic-bezier(.2, .7, .2, 1)
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (min-width:560px) {
+
+      .team-grid,
+      .act-grid,
+      .about-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .detail-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .gallery {
+        grid-template-columns: repeat(3, 1fr)
+      }
+
+      .org-officers {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+
+    @media (min-width:768px) {
+      .countdown {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 640px
+      }
+
+      .hero .fig-wrap {
+        width: min(58%, 420px)
+      }
+
+      .sheet {
+        left: 50%;
+        top: 50%;
+        right: auto;
+        bottom: auto;
+        transform: translate(-50%, -45%) scale(.98);
+        width: min(92vw, 820px);
+        height: min(90dvh, 900px);
+        border-radius: 20px;
+        border: 2px solid var(--tc);
+        opacity: 0;
+        visibility: hidden
+      }
+
+      .sheet.open {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        visibility: visible
+      }
+
+      .sheet-handle {
+        display: none
+      }
+
+      .acc-list {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .faculty-list {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+
+    @media (min-width:1000px) {
+
+      .team-grid,
+      .act-grid {
+        grid-template-columns: repeat(3, 1fr)
+      }
+
+      .about-grid {
+        grid-template-columns: repeat(4, 1fr)
+      }
+
+      .gallery {
+        grid-template-columns: repeat(4, 1fr)
+      }
+    }
+
+    @media (min-width:1025px) {
+      .desktop-nav {
+        display: flex
+      }
+
+      .hamburger {
+        display: none
+      }
+
+      .hero {
+        min-height: calc(100dvh - var(--header-h))
+      }
+
+      .hero-inner {
+        grid-template-columns: 1.1fr .9fr;
+        text-align: left;
+        justify-items: start;
+        align-items: center;
+        column-gap: 2.5rem;
+        row-gap: 1rem
+      }
+
+      .hero .fig-wrap {
+        order: 0;
+        grid-row: 1 / span 8;
+        grid-column: 2;
+        width: 100%;
+        max-width: 440px;
+        justify-self: center;
+        margin: 0
+      }
+
+      .hero-inner>*:not(.fig-wrap) {
+        grid-column: 1
+      }
+
+      .hero-cta {
+        justify-content: flex-start
+      }
+
+      .hero-date,
+      .sysstatus {
+        align-self: start
+      }
+
+      .acc-list {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+
+    @media (max-height:520px) and (orientation:landscape) {
+      .hero {
+        min-height: auto;
+        padding-block: 1.2rem 2rem
+      }
+
+      .hero .fig-wrap {
+        width: min(40%, 260px)
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      * {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+        scroll-behavior: auto !important
+      }
+
+      #fx {
+        display: none
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none
+      }
+
+      .sysstatus .dot {
+        animation: none
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #000
+      }
+
+      .site-header,
+      .mobile-menu,
+      #fx,
+      #loader,
+      .hero-bg {
+        display: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ LOADING SCREEN ============ -->
+  <div id="loader" role="status" aria-live="polite">
+    <div>
+      <svg class="load-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <defs>
+          <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#22e0ff" />
+            <stop offset="1" stop-color="#1e90ff" />
+          </linearGradient>
+        </defs>
+        <path d="M24 3 43 13v22L24 45 5 35V13z" fill="none" stroke="url(#lg)" stroke-width="2.5" />
+        <path d="M20 15h9l-5 8h5l-9 15 3-11h-6z" fill="url(#lg)" />
+      </svg>
+      <div class="load-title">CICS</div>
+      <div class="load-org">Information Technology Society</div>
+      <div class="load-bar"><i></i></div>
+      <div class="load-status">Initializing Event Experience...</div>
+    </div>
+  </div>
+  <script>
+    /* Critical loader release: runs before all optional page enhancements. */
+    (function () {
+      function releaseLoader() {
+        var loader = document.getElementById('loader');
+        if (!loader) return;
+        loader.classList.add('hide');
+        loader.setAttribute('aria-hidden', 'true');
+        loader.style.pointerEvents = 'none';
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', releaseLoader, {
+          once: true
+        });
+      } else {
+        releaseLoader();
+      }
+      window.addEventListener('load', releaseLoader, {
+        once: true
+      });
+      window.setTimeout(releaseLoader, 1800);
+    }());
+  </script>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="header">
+    <div class="header-bar">
+      <a class="brand" href="#home" aria-label="CICS Battle of Legends home">
+        <span class="brand-badges" aria-hidden="true">
+          <span class="badge-logo">CICS</span>
+          <span class="badge-logo">ITS</span>
+        </span>
+        <span class="brand-txt"><b>BATTLE OF LEGENDS</b><span>IT Skills Festival 2026</span></span>
+      </a>
+      <nav class="desktop-nav" id="desktopNav" aria-label="Primary">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#activities">Activities</a>
+        <a href="#teams">Teams</a>
+        <a href="#participants">Participants</a>
+        <a href="#details">Event Details</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+        <a class="btn sm" href="#teams" style="margin-left:.4rem">Explore Teams</a>
+      </nav>
+      <button class="hamburger" id="hamBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+  <aside class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="mm-head">
+      <span class="brand-badges" aria-hidden="true"><span class="badge-logo">CICS</span><span
+          class="badge-logo">ITS</span></span>
+      <button class="mm-close" id="mmClose" aria-label="Close menu">&times;</button>
+    </div>
+    <nav aria-label="Mobile">
+      <ul class="mm-links">
+        <li><a href="#home"><span class="num">01</span>Home</a></li>
+        <li><a href="#about"><span class="num">02</span>About</a></li>
+        <li><a href="#activities"><span class="num">03</span>Activities</a></li>
+        <li><a href="#teams"><span class="num">04</span>Teams</a></li>
+        <li><a href="#participants"><span class="num">05</span>Participants</a></li>
+        <li><a href="#details"><span class="num">06</span>Event Details</a></li>
+        <li><a href="#gallery"><span class="num">07</span>Gallery</a></li>
+        <li><a href="#contact"><span class="num">08</span>Contact</a></li>
+      </ul>
+    </nav>
+    <div class="mm-cta"><a class="btn block" href="#teams">Explore Teams</a></div>
+  </aside>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="home" aria-label="Event hero">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="fig" id="heroFig" style="right:-6%"></div>
+        <div class="fig" id="heroFig2" style="left:-10%;opacity:.28"></div>
+      </div>
+      <div class="grid-lines" aria-hidden="true"></div>
+      <div class="overlay-dark" aria-hidden="true"></div>
+      <canvas id="fx" aria-hidden="true"></canvas>
+      <div class="wrap">
+        <div class="hero-inner">
+          <span class="sysstatus"><span class="dot"></span>System Status: Event Ready</span>
+          <p class="eyebrow presents">Information Technology Society Presents</p>
+          <h1 class="hero-title">CICS Battle<br>of Legends</h1>
+          <p class="hero-fest">Information Technology Skills Festival 2026</p>
+          <p class="hero-tag">Code <span class="sep">/</span> Create <span class="sep">/</span> Compete <span
+              class="sep">/</span> Connect</p>
+          <span class="hero-date">◆ September 29, 2026</span>
+          <p class="hero-community">Five Teams. One CICS Community.</p>
+          <div class="hero-cta">
+            <a class="btn" href="#activities">Explore Activities</a>
+            <a class="btn ghost" href="#teams">Meet the Teams</a>
+          </div>
+          <div class="fig-wrap" id="heroMainFig"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COUNTDOWN ============ -->
+    <section class="countdown-band" aria-label="Countdown">
+      <div class="wrap">
+        <div class="countdown-box hud reveal">
+          <span class="eyebrow">Initializing CICS Experience... Countdown to Launch</span>
+          <div class="countdown" id="countdown" role="timer" aria-live="polite">
+            <div class="cd-cell">
+              <div class="cd-num" id="cd-d">00</div>
+              <div class="cd-lab">Days</div>
+            </div>
+            <div class="cd-cell">
+              <div class="cd-num" id="cd-h">00</div>
+              <div class="cd-lab">Hours</div>
+            </div>
+            <div class="cd-cell">
+              <div class="cd-num" id="cd-m">00</div>
+              <div class="cd-lab">Minutes</div>
+            </div>
+            <div class="cd-cell">
+              <div class="cd-num" id="cd-s">00</div>
+              <div class="cd-lab">Seconds</div>
+            </div>
+          </div>
+          <div class="cd-live" id="cdLive">⚡ The CICS IT Event Is Here ⚡</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="band" id="about">
+      <div class="fig-bg" id="aboutFig" style="right:-6%;top:10%;height:80%" aria-hidden="true"></div>
+      <div class="wrap inner">
+        <div class="sec-head reveal">
+          <p class="eyebrow">About the Event</p>
+          <h2 class="section-title">Where Technology Meets Teamwork</h2>
+          <p class="sec-desc">CICS Battle of Legends is a full-day Information Technology Skills Festival presented by
+            the Information Technology Society of the College of Information and Computing Sciences. Students and
+            faculty unite across five teams to celebrate programming, digital creativity, and technical problem-solving
+            — powered by an esports atmosphere, not an esports tournament.</p>
+        </div>
+        <div class="about-grid">
+          <div class="pillar reveal">
+            <div class="ic" aria-hidden="true">&lt;/&gt;</div>
+            <h3>Programming & Logic</h3>
+            <p>Real coding challenges built around algorithms, syntax, and structured problem solving.</p>
+          </div>
+          <div class="pillar reveal">
+            <div class="ic" aria-hidden="true">⌘</div>
+            <h3>Digital Skills</h3>
+            <p>Data encoding, web development, databases, and everyday IT literacy under one roof.</p>
+          </div>
+          <div class="pillar reveal">
+            <div class="ic" aria-hidden="true">◈</div>
+            <h3>Creativity</h3>
+            <p>Multimedia and static web design where technical skill meets visual imagination.</p>
+          </div>
+          <div class="pillar reveal">
+            <div class="ic" aria-hidden="true">⚑</div>
+            <h3>Community</h3>
+            <p>Faculty and students collaborate, represent their teams, and build the CICS community.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ACTIVITIES ============ -->
+    <section class="band" id="activities">
+      <div class="fig-bg" id="actFig" style="left:-8%;bottom:0;height:70%" aria-hidden="true"></div>
+      <div class="wrap inner">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Compile Your Skills</p>
+          <h2 class="section-title">IT Activities & Challenges</h2>
+          <p class="sec-desc">A festival of technical events across the IT discipline. More activities can be added
+            anytime — everything is data-driven.</p>
+        </div>
+        <div class="act-grid" id="actGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ TEAMS ============ -->
+    <section class="band" id="teams">
+      <div class="wrap inner">
+        <div class="sec-head reveal">
+          <p class="eyebrow">The Five Legends</p>
+          <h2 class="section-title">Team Showcase</h2>
+          <p class="sec-desc">Five teams, each with its own identity, faculty mentors, and student roster. Tap View Team
+            to explore the full member directory.</p>
+        </div>
+        <div class="team-grid" id="teamGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ TEAM COLOR SELECTOR ============ -->
+    <section class="band" id="selector-sec">
+      <div class="wrap inner">
+        <div class="sec-head center reveal">
+          <p class="eyebrow">Pick Your Colors</p>
+          <h2 class="section-title">Which Team Represents You?</h2>
+          <p class="sec-desc">Tap a team color to light up the arena and reveal its identity.</p>
+        </div>
+        <div class="selector reveal" id="selector">
+          <div class="amb" id="selAmb" aria-hidden="true"></div>
+          <div class="selfig" id="selFig" aria-hidden="true"></div>
+          <div class="selector-inner">
+            <div class="chip-row" id="chipRow" role="group" aria-label="Team color selector"></div>
+            <div class="sel-info" id="selInfo" aria-live="polite">
+              <span class="sel-role">Select a team</span>
+              <span class="sel-name">Five Teams. One Community.</span>
+              <span class="sel-slogan">Tap a color above to begin.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PARTICIPANTS DIRECTORY ============ -->
+    <section class="band" id="participants">
+      <div class="wrap inner">
+        <div class="sec-head reveal">
+          <p class="eyebrow">All Participants</p>
+          <h2 class="section-title">Participant Directory</h2>
+          <p class="sec-desc">Select a team to browse its faculty list and student sections. Search and expandable
+            sections keep large rosters tidy.</p>
+        </div>
+        <div class="team-tabs" id="teamTabs" role="tablist" aria-label="Select team"></div>
+        <div id="participantPanel" class="reveal"></div>
+      </div>
+    </section>
+
+    <!-- ============ EVENT DETAILS ============ -->
+    <section class="band" id="details">
+      <div class="wrap inner">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Logistics</p>
+          <h2 class="section-title">Event Details</h2>
+          <p class="sec-desc">Everything you need to prepare for September 29. Details marked TBA will be confirmed by
+            the organizers.</p>
+        </div>
+        <div class="detail-grid" id="detailGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ TIMELINE ============ -->
+    <section class="band" id="program">
+      <div class="wrap inner">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Event Program</p>
+          <h2 class="section-title">Day Timeline</h2>
+          <p class="sec-desc">A tentative flow for the festival. Exact times will be announced closer to the event.</p>
+        </div>
+        <div class="timeline reveal" id="timeline"></div>
+      </div>
+    </section>
+
+    <!-- ============ GALLERY ============ -->
+    <section class="band" id="gallery">
+      <div class="wrap inner">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Gallery</p>
+          <h2 class="section-title">Moments & Previews</h2>
+          <p class="sec-desc">Placeholder previews grouped by category. Organizers can replace these with real event
+            photos.</p>
+        </div>
+        <div class="filter-row" id="filterRow" role="group" aria-label="Gallery filters"></div>
+        <div class="gallery" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ ORGANIZER ============ -->
+    <section class="band" id="organizer">
+      <div class="wrap inner">
+        <div class="org-card hud reveal">
+          <div class="org-logos" aria-hidden="true">
+            <div class="org-logo">ITS</div>
+            <div class="org-logo">CICS</div>
+          </div>
+          <h2 class="section-title" style="font-size:var(--step-2)">Information Technology Society</h2>
+          <p class="sec-desc" style="margin:.8rem auto 0">Organized by the Information Technology Society for the CICS
+            community. The ITS champions student growth in technology through events, workshops, and collaboration
+            across the College of Information and Computing Sciences.</p>
+          <div class="org-officers" id="officers"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="band" id="cta">
+      <div class="wrap inner">
+        <div class="final-cta reveal">
+          <div class="silhouettes" id="ctaSilhouettes" aria-hidden="true"></div>
+          <div class="inner2">
+            <p class="eyebrow" style="color:var(--gold)">Build. Debug. Create.</p>
+            <h2 class="final-title">Prepare for September 29</h2>
+            <p class="sec-desc" style="text-align:center">Code. Create. Collaborate. Represent your team at the CICS
+              Battle of Legends.</p>
+            <div class="color-strip" aria-hidden="true">
+              <span style="background:var(--firewall-green)"></span>
+              <span style="background:var(--malware-red)"></span>
+              <span style="background:var(--mage-blue)"></span>
+              <span style="background:var(--sniper-yellow)"></span>
+              <span style="background:var(--support-silver)"></span>
+            </div>
+            <a class="btn gold" href="#teams">Explore the Teams</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ TEAM DETAIL SHEET ============ -->
+  <div class="sheet-overlay" id="sheetOverlay"></div>
+  <aside class="sheet" id="teamSheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" aria-hidden="true">
+    <div class="sfade" aria-hidden="true"></div>
+    <div class="sfig" id="sheetFig" aria-hidden="true"></div>
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <div class="sheet-head">
+      <div>
+        <h2 class="sheet-title" id="sheetTitle">Team</h2>
+        <span class="sheet-role" id="sheetRole"></span>
+        <p class="sheet-slogan" id="sheetSlogan"></p>
+      </div>
+      <button class="sheet-close" id="sheetClose" aria-label="Close team details">&times;</button>
+    </div>
+    <div class="sheet-body" id="sheetBody"></div>
+  </aside>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Gallery preview">
+    <button class="lbclose" id="lbClose" aria-label="Close preview">&times;</button>
+    <div class="frame">
+      <div id="lbImg"></div>
+      <div class="lbcap" id="lbCap"></div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer" id="contact">
+    <div class="wrap foot-grid">
+      <div>
+        <a class="brand" href="#home" style="margin-bottom:.9rem">
+          <span class="brand-badges" aria-hidden="true"><span class="badge-logo">CICS</span><span
+              class="badge-logo">ITS</span></span>
+          <span class="brand-txt"><b>BATTLE OF LEGENDS</b><span>IT Skills Festival 2026</span></span>
+        </a>
+        <p style="color:var(--muted);max-width:42ch">College of Information and Computing Sciences · Information
+          Technology Society · September 29, 2026.</p>
+      </div>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="#home">Home</a><a href="#about">About</a><a href="#activities">Activities</a><a href="#teams">Teams</a>
+        <a href="#participants">Participants</a><a href="#details">Event Details</a><a href="#gallery">Gallery</a><a
+          href="#organizer">Organizer</a>
+      </nav>
+      <div>
+        <p class="mono" style="font-size:.68rem;color:var(--muted);margin-bottom:.6rem">Connect With ITS</p>
+        <div class="foot-social" aria-label="Social media">
+          <a href="#" aria-label="Facebook (placeholder)"><svg width="18" height="18" viewBox="0 0 24 24"
+              fill="currentColor">
+              <path
+                d="M13 10h3l.5-3H13V5.5c0-.9.3-1.5 1.6-1.5H17V1.1C16.6 1 15.5 1 14.3 1 11.7 1 10 2.5 10 5.2V7H7v3h3v9h3z" />
+            </svg></a>
+          <a href="#" aria-label="Instagram (placeholder)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg></a>
+          <a href="#" aria-label="Email (placeholder)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <rect x="3" y="5" width="18" height="14" rx="2" />
+              <path d="m4 7 8 6 8-6" /></svg></a>
+        </div>
+        <p style="color:var(--faint);font-size:.76rem;margin-top:.8rem">Contact person: <span class="tba">TBA</span></p>
+      </div>
+    </div>
+    <div class="wrap">
+      <p class="disclaimer">Mobile Legends: Bang Bang and its characters are trademarks of Moonton. This website is
+        designed for a college event and does not imply official sponsorship or affiliation with Moonton. All hero-style
+        artwork here is original stylized illustration created for this event.</p>
+      <p class="copyright">© 2026 Information Technology Society · College of Information and Computing Sciences. CICS
+        Battle of Legends — IT Skills Festival. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+    /* =====================================================================
+       DATA LAYER  —  ORGANIZERS EDIT HERE
+       ---------------------------------------------------------------------
+       • teams[]      : team names, colors, roles, slogans, faculty & students
+       • activities[] : IT activity cards
+       • eventDetails : logistics (use "TBA" when unknown)
+       • programme[]  : day timeline
+       • galleryData  : gallery placeholders (swap for real photos)
+       ===================================================================== */
+
+    // -- helper to generate placeholder student names (replace with real names) --
+    function fill(prefix, n) {
+      const a = [];
+      for (let i = 1; i <= n; i++) a.push(prefix + " Student " + i);
+      return a;
+    }
+
+    const teams = [{
+        id: "firewall-fighters",
+        name: "Firewall Fighters",
+        color: "#22c55e",
+        light: false,
+        role: "Tank / Fighter",
+        slogan: "Defend. Build. Advance.",
+        desc: "Defense, cybersecurity and resilience — the team that keeps the system standing.",
+        /* EDIT FACULTY NAMES HERE */
+        faculty: ["Ma'am Eden", "Sir Gimbert", "Sir Michael"],
+        /* EDIT SECTION NAMES BELOW */
+        students: [{
+            section: "Section 1",
+            /* EDIT SECTION NAME */
+            names: [
+              "Tambia Cynthia", "Alarma John Lloyd", "Domingo Mark Jean Klei", "Mayormita Krisham Fame",
+              "Cabanayan Mar", "Cortina Keneth", "Agcaoili Reilan", "deRamos Xavier Yancy",
+              "Orque Novalie Lei", "Tumaliuan Jennlyrose", "Uriarte Gerald Francis", "Tumaliuan Nicely Joy",
+              "Dela Cruz Angelica", "Palcong Adella", "Amban Regine", "Perciano Charbell",
+              "Uganiza Kimberly", "Corpuz Ever Sweet"
+            ]
+          },
+          {
+            section: "Section 2",
+            /* EDIT SECTION NAME */
+            names: [
+              "Acierta John Benedict", "Abata April Jane", "Palino Aubrey", "Corpuz Angela Mae",
+              "Mayor Johnhwane", "Columna Ashley Diana", "Clavero Catherine Joy", "Norigea Christian JB",
+              "Costales Kristine Ann", "Onza Babes", "Dalo Edlyn", "Agustin Catherine Zeta",
+              "Corpuz Ruzzel John", "Drillom Mark Jayson", "Gannaban Zuleca", "Cortina Jan Drill",
+              "Oloraza Justine", "Valdez Francess Nicole"
+            ]
+          },
+          {
+            section: "Section 3",
+            /* EDIT SECTION NAME */
+            names: [
+              "Relos Mary Frances", "Villena Jhon Paul", "Galzote Angilyn", "Ramos Jayvie",
+              "Santua Christian", "Butacan Jhon Lewis", "Padua Roselyn", "Cruz John",
+              "Tuquib Jann Aldrich", "Fuentes Shajany", "Mabag Brenda", "Vinoya Dave",
+              "Alvester Aldrich Keith", "Ventura Rhenzky", "Balansag Jonas", "Trinidad Michelle",
+              "Ventura Sharrina Mae", "Agcaoili Bea Bethina"
+            ]
+          },
+          {
+            section: "Section 4",
+            /* EDIT SECTION NAME */
+            names: [
+              "Lorena Bernadine", "Villanueva Mark Jake", "Bayota Ediemar", "Guitang Mardy",
+              "Santos Junmark", "Dayacus Rhealyn", "Dumadag Ryan Carl", "Sabadu Cyril Jaime",
+              "Dulduao Joanna Babes", "Apolinario Mark Chester", "Fernandez Jhon Lester", "Ederosas Roni Mar",
+              "Lagoc Mark Florence", "Constantino Chenelyn", "Agcaoili Christian Jade", "Verzosa Jervie",
+              "Gacesano Reyvie", "Quibo Jasmin"
+            ]
+          },
+          {
+            section: "Section 5",
+            /* EDIT SECTION NAME */
+            names: [
+              "Conceja Lea", "Castillo Mark Dave", "Aurelallao Gabriel Abby", "Bacaycay Trixie",
+              "Berbano John Rey", "Urmanita Mariel", "Binuya Mark Gian", "Carlos Nonamae",
+              "Bataro Rodel Jr.", "Sta. Cruz Kenjin", "Berbano Xyzarine", "Seguban Florante Jr.",
+              "Dela Cruz Rhean", "Sinco Jerald", "Coloma Judy-ann", "Tuzon Johanna Mae",
+              "Solancho Cylver James", "Combate Nicole"
+            ]
+          },
+          {
+            section: "Section 6",
+            /* EDIT SECTION NAME */
+            names: [
+              "Manuel James-Aarhon", "Reyes Rhea Mae", "Jasmin Reynald Jr.", "Batalla Randy Jr.",
+              "Caducio Alyssa", "Buquel Dominador Jr.", "Natividad Angel Cielo", "Dela Cruz Leanne Khate",
+              "Abiva Raymar", "Mendoza John Carlo", "Pelotin Gracelyn", "Guzman Gerald",
+              "Montero Micel Jean", "Talosa Nadielyn", "Reconose Jhon Francis", "Bolando Michelle",
+              "Saylago Aljuer-Kenin", "Domingo Jhon Loid"
+            ]
+          },
+          {
+            section: "Section 7",
+            /* EDIT SECTION NAME */
+            names: [
+              "Agluba Zarrel", "Ruamo Charleah", "Fajardo Reyna Joy", "De Guzman Ederlyn",
+              "Tierra Hershey", "Dela Cruz Christine Mae", "Barit Joanna Mae", "Marcos Sherwin",
+              "Baloran Deniel Dave", "De La Cruz Rovic", "Respicio John Lloyd", "Bangayan Dairra Jane",
+              "Bartolome Paul Nixon", "Paet Eljane", "Orgatino Stian", "Bulosan Joy Christel",
+              "Baleteb Ma. Thrishia", "Cabildo Angelyn"
+            ]
+          },
+          {
+            section: "Section 8",
+            /* EDIT SECTION NAME */
+            names: [
+              "Regalado Everngerald", "Samoy Mark Jimboy", "Dumlan Joel Jr.", "Bitales Gerald",
+              "Caolan Carl Ashley", "Mangoba Alexza May", "Sosa Marvin", "Geron Marly",
+              "Bersola John Carlo", "Urcia Romnick", "Callangan Steve", "Arellano Joshua",
+              "Esquero Dennis Geiane"
+            ]
+          }
+        ]
+      },
+      {
+        id: "malware-assassins",
+        name: "Malware Assassins",
+        color: "#ef4444",
+        light: false,
+        role: "Assassin",
+        slogan: "Think Fast. Execute Faster.",
+        desc: "Fast, precise and aggressive — striking problems before they spread.",
+        /* EDIT FACULTY NAMES HERE */
+        faculty: ["Ma'am Vicky", "Sir Marlex", "Sir Rj"],
+        /* EDIT SECTION NAMES BELOW */
+        students: [{
+            section: "Section 1",
+            /* EDIT SECTION NAME */
+            names: [
+              "Donato Mark Jaret", "Jose Rogie", "Baylon Eliseo", "Bartolome Mark Jhon",
+              "Respicio April Jane", "Cabaneza Rolando", "Garcia Jhon Mark", "Lampitoc Loren",
+              "Urmatan Vivian", "Malvar Angelica", "Fullante Jake Steven", "Pasion Kerima Mae",
+              "Binuya Kurt Dazer", "Allag Cyrelle Mark Dom...", "Belda Jessica", "Tammidao Femia",
+              "Cuzzam Jonathan"
+            ]
+          },
+          {
+            section: "Section 2",
+            /* EDIT SECTION NAME */
+            names: [
+              "Cuaresma Curtis", "Ancheta James", "Juan Crizhelle", "Lucena Christian Jhemail",
+              "Macadur Maria Teresa", "Macapulay Ar-jay", "Guillermo Nicole", "Bernardez Glenard Paul",
+              "Bucaling Manuel", "Conciso Jhon Lloyd", "Abiog Ive Mae", "Corpuz Xyber Khell",
+              "Bungor Rica Mae", "Petovelo Adrian Marphy", "Suason Joshua", "Tenorio Mark Jhon",
+              "Fidel Gian Carlo"
+            ]
+          },
+          {
+            section: "Section 3",
+            /* EDIT SECTION NAME */
+            names: [
+              "Grume Jhon Smith", "Ujano Danika Mae", "Capinia Romel Jr.", "Ometer John Nathaniell",
+              "Balanza Chrizelle Joy", "Balagan Steven Keith", "Concepcion Joseph", "Paat Hans Christian",
+              "Rielo Jasmine", "Lazaro Tomas Jr.", "Correa Ashley", "Dazo Florante",
+              "Marcos Joshua", "Mariano Jhon Loyd", "Maguddayao John Chri", "Ubilas Jessa",
+              "Arteta Yenoh"
+            ]
+          },
+          {
+            section: "Section 4",
+            /* EDIT SECTION NAME */
+            names: [
+              "Tagayuna Hendrich Bre...", "Pabua Rhean Joy", "Antonio Myhbie", "Macadangdang Lea",
+              "Tenorio Jesryl", "Siazon Jane", "Corotan Marygrace", "Cuyong Jerwin",
+              "Corotan Julie Ann", "Melchor Stephanie", "Ancheta Joan", "Mabba Samantha",
+              "Cabiles Tristhan Klein", "Orpilla Charlei", "Elpedes Jingle", "Ruiz Charica",
+              "Sidayao Manny Jhun"
+            ]
+          },
+          {
+            section: "Section 5",
+            /* EDIT SECTION NAME */
+            names: [
+              "Valiente Eric", "Corpuz Cherry Ann", "Durwin Allan Jay", "Castillo Lovely Mae",
+              "Acedo Ivy Claire", "Baggao John Lester", "Tomaneng Lester Martin", "Alfero Marrian Joy",
+              "Agustin Romnick", "Ugalino Jasmine", "Limon Alford", "Timosa Gerald Paul 6",
+              "Macasaddu Mark Jay", "Miramonte Alexandria", "Dufale Reyer", "Cortez Jasmine",
+              "Bolando James Brian"
+            ]
+          },
+          {
+            section: "Section 6",
+            /* EDIT SECTION NAME */
+            names: [
+              "Villanueva Princess Joy", "Narag MJ", "Salamero Kristalyn Joy", "Donato Lawrence",
+              "Ramento Rizalyn", "Balanza Jenjen", "Garte Ke Claine", "Siazon Harlie",
+              "Tolentino Jhanrea Lhei", "Usita Diane", "De La Cruz Arvin", "Escat Rico Jay",
+              "Baladoy Rheyn", "Agpoon Marielle", "Purification Mark Angelo", "Delos Santos Judy Mae",
+              "Sanchez Gian-Dave"
+            ]
+          },
+          {
+            section: "Section 7",
+            /* EDIT SECTION NAME */
+            names: [
+              "Bentillo Lloyd Kenneth", "Asuncion Jerene", "Maata Kristella Mae", "Tamba Rachelle Ann",
+              "Bitang Love Leen", "Clavero Lowela Jane", "Baloran Edison", "Davacous Roxanne",
+              "Salvatierra Katriz Yvette", "Oli Lanzel", "Pasion John Emil", "Capili Jerald",
+              "Baloran Mark Chester", "Vargas Gil Mark", "Durwin Adelfa", "Collado John Lawrence",
+              "Manibog Ayanna Leigh"
+            ]
+          },
+          {
+            section: "Section 8",
+            /* EDIT SECTION NAME */
+            names: [
+              "Hernando Rubie Anne", "Melad Alan", "Abugan Dhesiree", "Bentolao Jazzlynn Faye",
+              "Cabana Jackliou", "Hilario Diane Jane", "Condoy Zarah Katrinne", "Rigon Althea Aiza",
+              "Sabadu Kate", "Galdera John Matthew", "Newland Jexter Harvie", "Valera Jeffrey",
+              "Cabatbag Lovelyn", "Ordanel Jyla", "Rombaoa Frenchy Erika", "Consumido Maryjane",
+              "Gatura Nicole Rex"
+            ]
+          }
+        ]
+      },
+      {
+        id: "code-mages",
+        name: "Code Mages",
+        color: "#3b82f6",
+        light: false,
+        role: "Mage",
+        slogan: "Create Through Code.",
+        desc: "Intelligence, logic and innovation — turning ideas into working software.",
+        /* EDIT FACULTY NAMES HERE */
+        faculty: ["Sir Arnold", "Sir Sammy", "Ma'am Donna"],
+        /* EDIT SECTION NAMES BELOW */
+        students: [{
+            section: "Section 1",
+            /* EDIT SECTION NAME */
+            names: [
+              "Manuela Durcaz", "Baloran Sheena Marie", "Fabul John Alfred", "Pascual Mark John",
+              "Dayag Jayred Nephi", "Legaspi Brian", "Gonzaga Erica", "Batalla Angelica",
+              "Cabauan Freile Joy", "Dupaya Jamaica", "Tabuyo Renzel Marco", "Tirado Kristle Joy",
+              "Valdeman Vanze E", "Acedo Christina", "Alonzo Czarina Mei", "Arteta Caero John",
+              "Miraflores Cristine"
+            ]
+          },
+          {
+            section: "Section 2",
+            /* EDIT SECTION NAME */
+            names: [
+              "Papuigian Precious-Joy", "Lapitan Jaylyn =", "Baingan Brave", "Villanueva Jiezhel",
+              "Melchor Maynard", "Sotto Ron Christian", "Utanes Aubrey", "Lapitas Angelica",
+              "Samoy Jeboy", "Ramos Frank Lewis", "Mendoza Mariel", "Cardenas Waynard 6",
+              "Gannaban Jameaca", "Olmo Rafael Jr.", "Mateo Adrian Dale", "Espenilla Leimart",
+              "Baloran Andrei John"
+            ]
+          },
+          {
+            section: "Section 3",
+            /* EDIT SECTION NAME */
+            names: [
+              "Pillos Frederick", "Tabuyo Leeneth", "Manuel Yvan", "Escoto Mycko Jmiel",
+              "Curibang Leian Azrher", "Jurado Franz Angelo", "Tapiru Bea Faye", "Atayan Paul Ian",
+              "Bolando Randol", "Cariaga Kerby", "Juan Glysabeth", "Borres Saimon James",
+              "Bitagun Jisel", "Ramos Jaycel Jane", "Villanueva Ivan", "Agluba Leonel",
+              "Salvio Cristian James"
+            ]
+          },
+          {
+            section: "Section 4",
+            /* EDIT SECTION NAME */
+            names: [
+              "Zaragosa Chezaira", "Araguero Cristine Joyce", "Bareno Sanshine", "Ramos John Christian",
+              "Damo Annaliza", "Pelotin Mery Rose", "Vidad Glaidel Joy", "Buenavista Abigail",
+              "Ugale Sherwin", "Bernardo Vanessa", "Fontiveros Geirly Joy", "Nicolas Andrei",
+              "Ramos Jade", "Castillo Princess Queenie", "Flores Jennifer", "Oblero Dharyl Jhon 6",
+              "Sagquiped Rowena"
+            ]
+          },
+          {
+            section: "Section 5",
+            /* EDIT SECTION NAME */
+            names: [
+              "Ingayen J-lord", "Vidad Rolly Jr.", "Conceja Vhaness Jenni...", "Seminiano Rhian Joy",
+              "Relos Lovelyn", "Rigon Gilbert Jr.", "Parado Princess Nicole", "Gabriel Kaizer Bryce",
+              "Canero Cheson Jake", "Valdez Rhiana Kim", "Tabilas James", "Cachola Sheenlie",
+              "Corpuz Reychelle Ann", "Guillermo John Eric", "Durian, Fernando Jr.", "Arzadon Adrian Nico",
+              "Columna Maria Antone..."
+            ]
+          },
+          {
+            section: "Section 6",
+            /* EDIT SECTION NAME */
+            names: [
+              "Garces Chrislyn Jean", "Catral Judy Rose", "Vergara Jhon Emil", "Del Rosario Princess An...",
+              "Vargas Kimberly Trish", "Dubla Kenneth", "Sosa John Lloyd", "Acosta Rochelle",
+              "Natividad Joan", "Andres Jozaine", "Cabonce Rheyzelle", "Ramos, Arnel",
+              "Reconsal McLawrence", "Antonio Maricel", "Tumamad Joey", "Amban Jomayma",
+              "Eustaquio Angelo"
+            ]
+          },
+          {
+            section: "Section 7",
+            /* EDIT SECTION NAME */
+            names: [
+              "Asuncion Romar", "Ubarre Richelle", "Ternoro Mc Larence", "Adriano Mary Jane",
+              "Flores Cristel Mae", "Villanueva Jhon Nixon", "Pasion John Paul", "Columna Erica",
+              "Palencia Rosemelito", "Gasmen Rojou Jay", "Rosete Renz Michael", "Sanchez Melgar",
+              "Ramos Roxanne", "Justo Melvin Jay", "Sosa Jayvie", "Cabbat Edward",
+              "Manuel Rhonley"
+            ]
+          },
+          {
+            section: "Section 8",
+            /* EDIT SECTION NAME */
+            names: [
+              "Alberto Kent Jordan", "Bautista Janice", "Valentin Celine", "Aguirre Ryan Dave",
+              "Verbo Mark Francis", "Cuenco Vincent Milton", "Cabilliza Cristinger", "Franco Arnulfo Jr.",
+              "Domingo Rica Mae", "Barbecho Jomar", "Lomibao Jerald"
+            ]
+          }
+        ]
+      },
+      {
+        id: "bug-snipers",
+        name: "Bug Snipers",
+        color: "#facc15",
+        light: false,
+        role: "Marksman",
+        slogan: "Find. Fix. Finish.",
+        desc: "Accuracy, debugging and focus — hunting down every error with precision.",
+        /* EDIT FACULTY NAMES HERE */
+        faculty: ["Sir Fernan", "Ma'am Rara", "Sir Jack"],
+        /* EDIT SECTION NAMES BELOW */
+        students: [{
+            section: "Section 1",
+            /* EDIT SECTION NAME */
+            names: [
+              "Agubo Charlz Jainus", "Ugas John Lloyd", "Carlos Cherry Anne", "Ilarde Lyka Marie",
+              "Bunuhan Czarinna Mikyla", "Viloria Analie", "Rosacia Stephen Jade", "Canibo Mark O",
+              "Acebedo Rizza Mae", "Lumusad Nestle", "Agcaoili Jennifer", "Salvador Lovelyn",
+              "Cortes LJ", "Vijer Shamaane", "Aguilar Charithy", "Quibo Ianah Coreen",
+              "Lucena Carl James"
+            ]
+          },
+          {
+            section: "Section 2",
+            /* EDIT SECTION NAME */
+            names: [
+              "Barien Justine Lei", "Tabunian Novidaine", "Rumbaoa Prince Andy", "Corpuz Shaoyan Joel",
+              "Padiran Jr. Maynard F.", "Quiodipan Carl Gian", "Ordaniel Aldrick", "Zigany Jovel",
+              "Liego Miah Glynniz", "Velando Chlowie Arleann", "Ilarde Bernadeth", "Usabal Micaella (7",
+              "Orpilla Kathleen Fate", "Blanchara Raymar", "Salvador Jamaica", "Pamittan Allan Jhon",
+              "Dela Cruz Daryl"
+            ]
+          },
+          {
+            section: "Section 3",
+            /* EDIT SECTION NAME */
+            names: [
+              "Bautista Erwin John", "Conseja Marc Chester", "Tabangcura Jhon-rich", "Villegas Chary Dele",
+              "De La Cruz James Fer", "Reminajes D-Jay", "Donato Jay", "Garcia Shane Allyssa M...",
+              "Esteban John Kerby", "Calabiao Antonette", "Alejandro Kurt Clarence", "Duero Jonathan",
+              "Aquebay Heart Angle", "Tambua Joyce Avy", "Nebab Rizza Mae", "Cacut Joshua",
+              "Vargas Andrei Lanz"
+            ]
+          },
+          {
+            section: "Section 4",
+            /* EDIT SECTION NAME */
+            names: [
+              "Burgos Freddie", "Naidas Alicia Keith", "Gonzales April Joy", "Gonzaga Janna Margar...",
+              "Siriban Santino", "Cabaniza Jasmine O", "Olivas Jasmine", "Agcaoili Andrea Claire",
+              "Agcaoili Christian", "Rubac Jessica", "Guzman Erica", "Jose Lorie Jane",
+              "Bitamog Ashley Jane", "Abadilla Desireen Yesha", "Aguilar Airine =", "Reyes Ronalin",
+              "Corpuz Mark Angelo"
+            ]
+          },
+          {
+            section: "Section 5",
+            /* EDIT SECTION NAME */
+            names: [
+              "Urcia Jerome", "Alares Trisha", "Aresta Maria Gladies", "Corpuz Michelle",
+              "Martinez John Chris", "Baloran Nigel", "De Gracia Jannehl", "Orpilla Xandrex Gil",
+              "Pelotin Ralph Symond", "Lunday Jenelyn", "Ubarre Errol John", "Corbo Shaenic Bry",
+              "Agcaoili Noemie", "Sarian Regelyn", "Coloma Christian Jay", "Conciso Christine Joy",
+              "Corpuz Benedict"
+            ]
+          },
+          {
+            section: "Section 6",
+            /* EDIT SECTION NAME */
+            names: [
+              "Rosal Joy Ann = (?", "Coloma Jhon Zhen Paul", "Clavero Jordan", "Lorenzo Reiznel",
+              "Bartolome Benedict Aik...", "Mendoza Mara", "Costales April Joy", "Bulusan Jaeza Karyl",
+              "Carlos Kuin Ophelia", "Orata Ira Mae", "Tarun Mark Angelo", "Torres John Clarence",
+              "Valera Kae Ann", "Agcaoili Nicole", "Barit Gio Van", "De La Cruz Reymart",
+              "Supnet MC Laren"
+            ]
+          },
+          {
+            section: "Section 7",
+            /* EDIT SECTION NAME */
+            names: [
+              "Salvacion Zyroel", "Palaota Nova", "Soria Dominic", "Castro Kiara O",
+              "Ursulum Danica Mae", "Agpaoa Mark Elvin", "Andres J-hard", "Sinco, Fernando Jr.",
+              "Mata Danica", "Consigna Ryza", "Bagaosan A-jay", "Baltazar Bhonjany",
+              "Peralta Madonna a", "De La Cruz Emmanuel Jr.", "Damasco Jhayzel", "Pascua Francis-Ann",
+              "Balasa Crizel Kaye"
+            ]
+          },
+          {
+            section: "Section 8",
+            /* EDIT SECTION NAME */
+            names: [
+              "Acebedo Eliza", "De Gracia John Rehl", "Calina WeselyJr. (7", "Dagulio, Rodrigo Jr.",
+              "Santos Mariel", "Cabal Tanisha Rhose", "Paragugua Jane", "Salamero Marvin",
+              "De Vera Joyce Ane"
+            ]
+          }
+        ]
+      },
+      {
+        id: "patch-supporters",
+        name: "Patch Supporters",
+        color: "#f8fafc",
+        light: true,
+        accent: "#c9d2e3",
+        role: "Support",
+        slogan: "Support. Repair. Improve.",
+        desc: "Teamwork, maintenance and collaboration — keeping everyone at their best.",
+        /* EDIT FACULTY NAMES HERE */
+        faculty: ["Sir Mark", "Sir Cid", "Sir Doms"],
+        /* EDIT SECTION NAMES BELOW */
+        students: [{
+            section: "Section 1",
+            /* EDIT SECTION NAME */
+            names: [
+              "Orenia Maribell", "Alicuben Grethel", "Agurilla Jomel", "Rodrigo Lance",
+              "dela Cruz Irish Jane", "Baloran Shiela Mae", "Enayo Marky Jay", "Tabangcura Ezekiel Xander",
+              "Medinaceli Frances Mae", "Ubarre Kelly Mae", "Beran Rose Ann", "Navarrete Nika",
+              "Collado Noemi", "Contillo Angelique", "Valdez Marilyn", "Palino Angel",
+              "Arzadon Russel John"
+            ]
+          },
+          {
+            section: "Section 2",
+            /* EDIT SECTION NAME */
+            names: [
+              "Dela Cruz Neslyn", "Cabinti Christian Jerry", "Aragon Katrina Joy", "Bacuyag Divine Mea",
+              "Jerusalem Justine", "Urian Ian Aldrich", "Curioso, Juanito Jr.", "Relos Aprille Kate",
+              "Duyao Jessica Mae", "Cacut Kleian Marie", "Andres John Alli", "Manuel Mc John",
+              "Areola Aaron", "Valentin Lindsey Jhen", "Mamauag Justine Jay", "Rivera John Lloyd",
+              "Gamata Rizal"
+            ]
+          },
+          {
+            section: "Section 3",
+            /* EDIT SECTION NAME */
+            names: [
+              "Mecate Amy", "Inian Princess Tresha", "Orteza Rainiel", "Cabildo Jhon Lester",
+              "Uday Elisabeth", "Magulod Leo", "Onza Jineah Mae", "Agpoon Mark Jay",
+              "Tomas Carlos Paulo", "Roc Ashly Rhian", "Trinidad Lyka", "Turuel Colline Faye",
+              "Acedo Cristin Ann", "Macadangdang Clive V...", "Bayubay Enrico", "Ramos Justine Caezar",
+              "Tabilas Joshua"
+            ]
+          },
+          {
+            section: "Section 4",
+            /* EDIT SECTION NAME */
+            names: [
+              "Dalaponas Charmelle", "Bailon Mare Dominic", "Vidad Christin Mae", "Rubino Rosevin",
+              "Ramos Janice", "AnchetaPeepay", "Dela Vega Marlou Jr.", "Tabanang Kriziele",
+              "Valera Carlihean Nova", "Bayun Benjamin III", "Marinas Jaymarc", "Orel Jhetty Paul",
+              "Ruiz Charlie", "Bambalan Haslyn Mae", "Relos Nadine", "Pintucan John Amiel",
+              "Gasadan Heinz"
+            ]
+          },
+          {
+            section: "Section 5",
+            /* EDIT SECTION NAME */
+            names: [
+              "Olivas Mike", "Relos Mark Kevin", "Baniel John", "Manuel Ralph Lawrence",
+              "Consigna Lourd Sartiani", "Capinia Precious Jewel", "Tomas Neil Jasper", "Badal Kelvin",
+              "Laddaran Irish Journey", "Barangan Jhovan", "Barcena Cathlea Rose", "Maguddayao Leonor Jr.",
+              "Beltran Dayze", "Barit Mialene", "Gabriel Kyle Angelo", "Sabado Vincent",
+              "Valdez Jhenna Marie"
+            ]
+          },
+          {
+            section: "Section 6",
+            /* EDIT SECTION NAME */
+            names: [
+              "Cacalda Brenda", "Florido Aaron", "Esteban Brenda", "Sotelo Harry",
+              "Peralta Arny", "Villar Shynmeaa Rose", "Duyao Criselle", "Ubarre Bea",
+              "Gattuc Glenda", "Bersola Justine Earl", "Corpuz John Rain", "Bentillo Marvin",
+              "Agcaoili Loreibeth", "Itiong Franklin", "Jose Princess Jovina", "Agcaoili Jaybhel",
+              "Talosig Fritz John"
+            ]
+          },
+          {
+            section: "Section 7",
+            /* EDIT SECTION NAME */
+            names: [
+              "Bitagun Danica", "Galura Paul Andrei", "Gabrino Rodleen", "Bueno Joshua",
+              "De Peralta Edmalyn", "Jasmin Dyan Mae", "Bitos Bregard", "Pipo Xyrelle",
+              "Tammidao Daryll Dave", "Sotelo Ejay", "Piga Kaicy Ann", "Molina Charles",
+              "Mateo Lailanie", "Concepcion Gieshel Mae", "Capinia Glyza Jane", "Narag Grace Lyn",
+              "Tomas Reymalyn"
+            ]
+          },
+          {
+            section: "Section 8",
+            /* EDIT SECTION NAME */
+            names: [
+              "Bumagat Monhel", "Reynon Francis J", "Tugade Mariden", "Canapi Jhon Christian",
+              "Elpedes Francis", "Cachola Edwesley", "Antonio Oliver Jose", "Bangayan Franie"
+            ]
+          }
+        ]
+      },
+    ];
+
+    const activities = [{
+        name: "Programming Challenge",
+        micro: "Compile Your Skills",
+        tag: "Logic & Code",
+        icon: "code",
+        desc: "Students solve coding tasks involving logic, syntax, algorithms, and problem solving."
+      },
+      {
+        name: "Data Encoding",
+        micro: "Accuracy Meets Speed",
+        tag: "Precision",
+        icon: "table",
+        desc: "Participants demonstrate speed, accuracy, organization, and proper handling of digital information."
+      },
+      {
+        name: "Static Web Development",
+        micro: "Design the Web",
+        tag: "HTML / CSS",
+        icon: "browser",
+        desc: "Students create visually appealing static web pages using HTML and CSS."
+      },
+      {
+        name: "Networking",
+        micro: "Connect the Nodes",
+        tag: "Infrastructure",
+        icon: "network",
+        desc: "Hands-on challenges in cabling, configuration, and understanding how networks connect."
+      },
+      {
+        name: "Database Activities",
+        micro: "Query the Truth",
+        tag: "Data",
+        icon: "db",
+        desc: "Design, query and manage structured data to solve realistic information problems."
+      },
+      {
+        name: "IT Quiz",
+        micro: "Know Your Tech",
+        tag: "Knowledge",
+        icon: "quiz",
+        desc: "A fast-paced quiz spanning hardware, software, and IT fundamentals."
+      },
+      {
+        name: "Computer Troubleshooting",
+        micro: "Build. Debug. Create.",
+        tag: "Hardware",
+        icon: "wrench",
+        desc: "Diagnose and resolve hardware and software issues under time pressure."
+      },
+      {
+        name: "Multimedia",
+        micro: "Create & Inspire",
+        tag: "Creativity",
+        icon: "media",
+        desc: "Blend design and technology to produce compelling digital media."
+      },
+      {
+        name: "Digital Literacy",
+        micro: "Smart & Secure",
+        tag: "Foundations",
+        icon: "shield",
+        desc: "Everyday digital skills, online safety, and responsible technology use."
+      }
+    ];
+
+    const eventDetails = [{
+        icon: "cal",
+        label: "Date",
+        value: "September 29, 2026",
+        tba: false
+      },
+      {
+        icon: "org",
+        label: "Organizer",
+        value: "Information Technology Society",
+        tba: false
+      },
+      {
+        icon: "col",
+        label: "College",
+        value: "CICS",
+        tba: false
+      },
+      {
+        icon: "pin",
+        label: "Venue",
+        value: "TBA",
+        tba: true
+      },
+      {
+        icon: "clock",
+        label: "Start Time",
+        value: "TBA",
+        tba: true
+      },
+      {
+        icon: "reg",
+        label: "Registration",
+        value: "TBA",
+        tba: true
+      },
+      {
+        icon: "dress",
+        label: "Dress Code",
+        value: "TBA",
+        tba: true
+      },
+      {
+        icon: "note",
+        label: "Reminders",
+        value: "TBA",
+        tba: true
+      }
+    ];
+
+    const programme = [{
+        phase: "Registration",
+        time: "Time: TBA"
+      },
+      {
+        phase: "Opening Ceremony",
+        time: "Time: TBA"
+      },
+      {
+        phase: "Team Introduction",
+        time: "Time: TBA"
+      },
+      {
+        phase: "Programming Activity",
+        time: "Time: TBA"
+      },
+      {
+        phase: "Data Encoding",
+        time: "Time: TBA"
+      },
+      {
+        phase: "Static Web Development",
+        time: "Time: TBA"
+      },
+      {
+        phase: "Other IT Activities",
+        time: "Time: TBA"
+      },
+      {
+        phase: "Break",
+        time: "Time: TBA"
+      },
+      {
+        phase: "Continuation of Activities",
+        time: "Time: TBA"
+      },
+      {
+        phase: "Awarding / Recognition",
+        time: "Time: TBA"
+      },
+      {
+        phase: "Closing Ceremony",
+        time: "Time: TBA"
+      }
+    ];
+
+    const galleryData = [{
+        cat: "Teams",
+        label: "Team Reveal"
+      },
+      {
+        cat: "Programming",
+        label: "Code Sprint"
+      },
+      {
+        cat: "Static Web",
+        label: "Web Build"
+      },
+      {
+        cat: "Data Encoding",
+        label: "Encoding Race"
+      },
+      {
+        cat: "Faculty",
+        label: "Faculty Mentors"
+      },
+      {
+        cat: "Students",
+        label: "Student Squad"
+      },
+      {
+        cat: "Event Prep",
+        label: "Preparation"
+      },
+      {
+        cat: "Event Day",
+        label: "Festival Day"
+      },
+      {
+        cat: "Awards",
+        label: "Recognition"
+      },
+      {
+        cat: "Programming",
+        label: "Debug Session"
+      },
+      {
+        cat: "Teams",
+        label: "Color Wars"
+      },
+      {
+        cat: "Awards",
+        label: "Champions"
+      }
+    ];
+
+    /* =====================================================================
+       ARTWORK  —  original stylized "hero" silhouettes (decorative only)
+       ===================================================================== */
+    function heroFigure(color, role) {
+      // stylized armored esports figure silhouette + role emblem accent
+      const c = color,
+        id = Math.random().toString(36).slice(2, 7);
+      return `<svg viewBox="0 0 240 400" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="">
+    <defs>
+      <linearGradient id="fg${id}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="${c}" stop-opacity=".95"/>
+        <stop offset="1" stop-color="${c}" stop-opacity=".25"/>
+      </linearGradient>
+      <radialGradient id="gl${id}" cx="50%" cy="30%" r="60%">
+        <stop offset="0" stop-color="${c}" stop-opacity=".5"/><stop offset="1" stop-color="${c}" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="120" cy="140" rx="110" ry="130" fill="url(#gl${id})"/>
+    <!-- cape -->
+    <path d="M120 70 C60 120 55 260 40 380 L200 380 C185 260 180 120 120 70Z" fill="${c}" opacity=".16"/>
+    <!-- body -->
+    <path d="M120 60 c-18 0 -30 12 -30 30 l0 8 -28 20 8 40 20 -6 0 90 -16 130 44 0 6 -70 6 70 44 0 -16 -130 0 -90 20 6 8 -40 -28 -20 0 -8 c0 -18 -12 -30 -30 -30Z" fill="url(#fg${id})"/>
+    <!-- helmet -->
+    <path d="M120 34 c-20 0 -34 14 -34 34 0 16 12 30 34 34 22 -4 34 -18 34 -34 0 -20 -14 -34 -34 -34Z" fill="${c}" opacity=".9"/>
+    <path d="M104 66 h32 l-6 10 h-20Z" fill="#050816" opacity=".6"/>
+    <!-- chest emblem -->
+    <g transform="translate(120 150)" opacity=".9">${roleGlyph(role,"#050816")}</g>
+    <!-- energy lines -->
+    <path d="M92 210 h56 M96 240 h48 M100 270 h40" stroke="${c}" stroke-width="2" opacity=".5"/>
+  </svg>`;
+    }
+
+    function roleGlyph(role, ink) {
+      switch (role) {
+        case "Tank / Fighter":
+          return `<path d="M0 -22 L20 -12 V6 L0 24 -20 6 V-12Z" fill="${ink}" opacity=".55"/><path d="M0 -14 L12 -8 V4 L0 14 -12 4 V-8Z" fill="none" stroke="${ink}" stroke-width="2" opacity=".7"/>`;
+        case "Assassin":
+          return `<path d="M-4 -22 L4 -22 6 12 0 22 -6 12Z" fill="${ink}" opacity=".6"/><rect x="-8" y="10" width="16" height="6" rx="2" fill="${ink}" opacity=".6"/>`;
+        case "Mage":
+          return `<circle r="14" fill="none" stroke="${ink}" stroke-width="2" opacity=".7"/><path d="M0 -20 v40 M-20 0 h40" stroke="${ink}" stroke-width="2" opacity=".5"/><circle r="5" fill="${ink}" opacity=".6"/>`;
+        case "Marksman":
+          return `<circle r="16" fill="none" stroke="${ink}" stroke-width="2.5" opacity=".7"/><path d="M0 -22 v10 M0 22 v-10 M-22 0 h10 M22 0 h-10" stroke="${ink}" stroke-width="2.5" opacity=".7"/><circle r="3" fill="${ink}"/>`;
+        default:
+          return `<path d="M-4 -20 h8 v12 h12 v8 h-12 v12 h-8 v-12 h-12 v-8 h12Z" fill="${ink}" opacity=".55"/>`;
+      }
+    }
+
+    function teamLogoSVG(color, role) {
+      return `<svg width="30" height="30" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3 43 13v22L24 45 5 35V13z" fill="none" stroke="${color}" stroke-width="2.6"/><g transform="translate(24 24) scale(.7)">${roleGlyph(role,color)}</g></svg>`;
+    }
+    const esc = s => String(s).replace(/[&<>"]/g, m => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;'
+    } [m]));
+    const studentTotal = t => t.students.reduce((s, sec) => s + sec.names.length, 0);
+    const $ = s => document.querySelector(s);
+
+    /* =====================================================================
+       RENDER: hero decorative figures
+       ===================================================================== */
+    $("#heroMainFig").innerHTML = heroFigure("#22e0ff", "Mage");
+    $("#heroFig").innerHTML = heroFigure("#1e90ff", "Tank / Fighter");
+    $("#heroFig2").innerHTML = heroFigure("#3b82f6", "Assassin");
+    $("#aboutFig").innerHTML = heroFigure("#3b82f6", "Mage");
+    $("#aboutFig").style.height = "80%";
+    $("#actFig").innerHTML = heroFigure("#22e0ff", "Marksman");
+    $("#ctaSilhouettes").innerHTML = teams.map(t => heroFigure(t.light ? t.accent : t.color, t.role)).join('');
+
+    /* =====================================================================
+       RENDER: activities
+       ===================================================================== */
+    const actIcons = {
+      code: '&lt;/&gt;',
+      table: '▦',
+      browser: '❐',
+      network: '⇄',
+      db: '⛁',
+      quiz: '?',
+      wrench: '🛠',
+      media: '◈',
+      shield: '⛨'
+    };
+    $("#actGrid").innerHTML = activities.map(a => `
+  <article class="act-card reveal">
+    <div class="act-ic" aria-hidden="true">${actIcons[a.icon]||'▹'}</div>
+    <span class="act-micro">${esc(a.micro)}</span>
+    <h3>${esc(a.name)}</h3>
+    <p>${esc(a.desc)}</p>
+    <span class="act-tag">${esc(a.tag)}</span>
+  </article>`).join('');
+
+    /* =====================================================================
+       RENDER: team cards
+       ===================================================================== */
+    $("#teamGrid").innerHTML = teams.map(t => {
+      const disp = t.light ? t.accent : t.color;
+      return `<article class="team-card reveal" style="--tc:${disp}">
+    <div class="tfig">${heroFigure(disp,t.role)}</div>
+    <div class="tc-top">
+      <span class="tc-logo">${teamLogoSVG(disp,t.role)}</span>
+      <div><span class="tc-role">${esc(t.role)}</span><h3 class="tc-name">${esc(t.name)}</h3></div>
+    </div>
+    <span class="tc-color"><span class="tc-dot"></span>Team Color: ${esc(colorName(t))}</span>
+    <p class="tc-slogan">"${esc(t.slogan)}"</p>
+    <p class="tc-desc">${esc(t.desc)}</p>
+    <div class="tc-counts">
+      <div class="tc-count"><b>${t.faculty.length}</b><span>Faculty</span></div>
+      <div class="tc-count"><b>${studentTotal(t)}</b><span>Students</span></div>
+    </div>
+    <button class="btn tc-btn ${t.light?'lightfx':''}" data-team="${t.id}">View Team</button>
+  </article>`;
+    }).join('');
+
+    function colorName(t) {
+      return ({
+        "firewall-fighters": "Green",
+        "malware-assassins": "Red",
+        "code-mages": "Blue",
+        "bug-snipers": "Yellow",
+        "patch-supporters": "White / Silver"
+      })[t.id] || "";
+    }
+
+    /* =====================================================================
+       TEAM DETAIL SHEET  (reusable roster renderer)
+       ===================================================================== */
+    function facultyBlock(t) {
+      return `<div>
+    <div class="roster-label">Faculty List</div>
+    <ul class="faculty-list">
+      ${t.faculty.map(f=>`<li><span class="av">${esc(f.replace(/[^A-Za-z0-9]/g,'').slice(0,2).toUpperCase())}</span>
+        <span><span class="fn">${esc(f)}</span><br><span class="fr">Faculty Member · Department TBA</span></span></li>`).join('')}
+    </ul>
+  </div>`;
+    }
+
+    function studentBlock(t, idPrefix) {
+      return `<div>
+    <div class="roster-label">Students List</div>
+    <div class="search-wrap">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" placeholder="Search faculty, student, or section..." data-search="${idPrefix}" aria-label="Search participants">
+    </div>
+    <div class="acc" data-acc="${idPrefix}">
+      ${t.students.map((sec,i)=>`
+        <div class="acc-item ${i===0?'open':''}" data-section="${esc(sec.section)}">
+          <button class="acc-head" aria-expanded="${i===0?'true':'false'}">
+            <span class="sec-name">${esc(sec.section)}</span>
+            <span class="sec-meta"><span class="cnt">${sec.names.length} Students</span>
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg></span>
+          </button>
+          <div class="acc-panel">
+            <ul class="acc-list">${sec.names.map(n=>`<li data-name="${esc(n.toLowerCase())}">${esc(n)}</li>`).join('')}</ul>
+          </div>
+        </div>`).join('')}
+    </div>
+    <p class="no-results" data-noresult="${idPrefix}" style="display:none">No matches found.</p>
+  </div>`;
+    }
+
+    function countRow(t) {
+      return `<div class="count-row">
+    <div class="count-pill"><b>${t.faculty.length}</b><span>Faculty</span></div>
+    <div class="count-pill"><b>${studentTotal(t)}</b><span>Students</span></div>
+    <div class="count-pill"><b>${t.students.length}</b><span>Sections</span></div>
+  </div>`;
+    }
+
+    const sheet = $("#teamSheet"),
+      sheetOv = $("#sheetOverlay");
+    let sheetTrigger = null;
+
+    function openSheet(id, trigger) {
+      const t = teams.find(x => x.id === id);
+      if (!t) return;
+      const disp = t.light ? t.accent : t.color;
+      sheetTrigger = trigger || null;
+      sheet.style.setProperty('--tc', disp);
+      $("#sheetTitle").textContent = t.name;
+      $("#sheetRole").textContent = t.role + " · Team Color: " + colorName(t);
+      $("#sheetSlogan").textContent = '"' + t.slogan + '"';
+      $("#sheetFig").innerHTML = heroFigure(disp, t.role);
+      $("#sheetBody").innerHTML = countRow(t) + facultyBlock(t) + studentBlock(t, "sheet");
+      wireAccordions($("#sheetBody"));
+      wireSearch($("#sheetBody"), "sheet");
+      sheet.classList.add('open');
+      sheetOv.classList.add('open');
+      sheet.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('no-scroll');
+      $("#sheetClose").focus();
+    }
+
+    function closeSheet() {
+      sheet.classList.remove('open');
+      sheetOv.classList.remove('open');
+      sheet.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('no-scroll');
+      if (sheetTrigger) sheetTrigger.focus();
+    }
+    $("#teamGrid").addEventListener('click', e => {
+      const b = e.target.closest('[data-team]');
+      if (b) openSheet(b.dataset.team, b);
+    });
+    $("#sheetClose").addEventListener('click', closeSheet);
+    sheetOv.addEventListener('click', closeSheet);
+
+    /* accordion behaviour (height animation via scrollHeight) */
+    function wireAccordions(scope) {
+      scope.querySelectorAll('.acc-item').forEach(item => {
+        const head = item.querySelector('.acc-head'),
+          panel = item.querySelector('.acc-panel');
+
+        function setOpen(open) {
+          item.classList.toggle('open', open);
+          head.setAttribute('aria-expanded', open ? 'true' : 'false');
+          panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0px';
+        }
+        setOpen(item.classList.contains('open'));
+        head.addEventListener('click', () => setOpen(!item.classList.contains('open')));
+      });
+    }
+    /* live search across faculty(names via block), student names & sections */
+    function wireSearch(scope, key) {
+      const input = scope.querySelector('[data-search="' + key + '"]');
+      const acc = scope.querySelector('[data-acc="' + key + '"]');
+      const noRes = scope.querySelector('[data-noresult="' + key + '"]');
+      const facLis = scope.querySelectorAll('.faculty-list li');
+      if (!input) return;
+      input.addEventListener('input', () => {
+        const q = input.value.trim().toLowerCase();
+        // faculty filter
+        facLis.forEach(li => {
+          li.style.display = (!q || li.textContent.toLowerCase().includes(q)) ? '' : 'none';
+        });
+        let anyStudent = false;
+        acc.querySelectorAll('.acc-item').forEach(item => {
+          const sec = item.dataset.section.toLowerCase();
+          const secMatch = q && sec.includes(q);
+          let visible = 0;
+          item.querySelectorAll('.acc-list li').forEach(li => {
+            const show = !q || secMatch || li.dataset.name.includes(q);
+            li.style.display = show ? '' : 'none';
+            if (show) visible++;
+          });
+          const itemShow = !q || secMatch || visible > 0;
+          item.style.display = itemShow ? '' : 'none';
+          if (itemShow && q) {
+            item.classList.add('open');
+            const p = item.querySelector('.acc-panel');
+            p.style.maxHeight = p.scrollHeight + 'px';
+            item.querySelector('.acc-head').setAttribute('aria-expanded', 'true');
+          }
+          if (itemShow && visible > 0) anyStudent = true;
+        });
+        if (noRes) noRes.style.display = (q && !anyStudent && ![...facLis].some(li => li.style.display !==
+          'none')) ? 'block' : 'none';
+      });
+    }
+
+    /* =====================================================================
+       PARTICIPANTS DIRECTORY (tabs -> reuse roster renderer)
+       ===================================================================== */
+    const tabs = $("#teamTabs"),
+      panel = $("#participantPanel");
+    tabs.innerHTML = teams.map((t, i) => {
+      const disp = t.light ? t.accent : t.color;
+      return `<button class="team-tab" role="tab" aria-selected="${i===0?'true':'false'}" data-team="${t.id}" style="--tc:${disp}">
+    <span class="tdot"></span>${esc(t.name)}</button>`;
+    }).join('');
+
+    function renderParticipants(id) {
+      const t = teams.find(x => x.id === id);
+      const disp = t.light ? t.accent : t.color;
+      panel.style.setProperty('--tc', disp);
+      panel.innerHTML = `<div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem">
+      <span class="tc-logo" style="--tc:${disp}">${teamLogoSVG(disp,t.role)}</span>
+      <div><span class="tc-role" style="color:${disp}">${esc(t.role)}</span>
+        <h3 style="font-family:'Orbitron';font-size:var(--step-2)">${esc(t.name)}</h3></div>
+    </div>` +
+        countRow(t) + `<div style="height:1rem"></div>` + facultyBlock(t) + studentBlock(t, "dir");
+      wireAccordions(panel);
+      wireSearch(panel, "dir");
+    }
+    tabs.addEventListener('click', e => {
+      const b = e.target.closest('[data-team]');
+      if (!b) return;
+      tabs.querySelectorAll('.team-tab').forEach(x => x.setAttribute('aria-selected', 'false'));
+      b.setAttribute('aria-selected', 'true');
+      renderParticipants(b.dataset.team);
+    });
+    renderParticipants(teams[0].id);
+
+    /* =====================================================================
+       TEAM COLOR SELECTOR (ambient)
+       ===================================================================== */
+    const chipRow = $("#chipRow"),
+      selInfo = $("#selInfo"),
+      selAmb = $("#selAmb"),
+      selFig = $("#selFig"),
+      selector = $("#selector");
+    chipRow.innerHTML = teams.map(t => {
+      const disp = t.light ? t.accent : t.color;
+      return `<button class="color-chip" role="button" aria-pressed="false" data-team="${t.id}" style="--tc:${disp}">
+    <span class="swatch"></span><span class="cn">${esc(t.name)}</span><span class="col">${esc(colorName(t))}</span></button>`;
+    }).join('');
+    chipRow.addEventListener('click', e => {
+      const b = e.target.closest('.color-chip');
+      if (!b) return;
+      chipRow.querySelectorAll('.color-chip').forEach(x => x.setAttribute('aria-pressed', 'false'));
+      b.setAttribute('aria-pressed', 'true');
+      const t = teams.find(x => x.id === b.dataset.team);
+      const disp = t.light ? t.accent : t.color;
+      selAmb.style.background = `radial-gradient(120% 120% at 80% 10%, ${disp}44, transparent 60%)`;
+      selector.style.background = `color-mix(in oklab, ${disp} 8%, var(--surface))`;
+      selFig.innerHTML = heroFigure(disp, t.role);
+      selFig.style.opacity = ".45";
+      selInfo.innerHTML = `<span class="sel-role" style="color:${disp}">${esc(t.role)} · ${esc(colorName(t))}</span>
+    <span class="sel-name">${esc(t.name)}</span>
+    <span class="sel-slogan">"${esc(t.slogan)}"</span>
+    <div class="sel-counts">
+      <span class="p"><b>${t.faculty.length}</b> Faculty</span>
+      <span class="p"><b>${studentTotal(t)}</b> Students</span>
+    </div>
+    <a class="btn sm" href="#participants" data-jump="${t.id}" style="justify-self:start;--bc:${disp}">View Team</a>`;
+      const jump = selInfo.querySelector('[data-jump]');
+      if (jump) jump.addEventListener('click', () => {
+        const tab = tabs.querySelector('[data-team="' + t.id + '"]');
+        if (tab) tab.click();
+      });
+    });
+
+    /* =====================================================================
+       EVENT DETAILS / TIMELINE / GALLERY / OFFICERS
+       ===================================================================== */
+    const detIcons = {
+      cal: '📅',
+      org: '⚑',
+      col: '🎓',
+      pin: '📍',
+      clock: '⏱',
+      reg: '📝',
+      dress: '👔',
+      note: '📌'
+    };
+    $("#detailGrid").innerHTML = eventDetails.map(d => `
+  <div class="detail-card reveal"><div class="ic" aria-hidden="true">${detIcons[d.icon]||'▹'}</div>
+    <div><div class="lab">${esc(d.label)}</div><div class="val ${d.tba?'tba':''}">${esc(d.value)}</div></div></div>`)
+      .join('');
+
+    $("#timeline").innerHTML = programme.map(p => `
+  <div class="tl-item"><div class="tl-phase">${esc(p.phase)}</div><div class="tl-time">${esc(p.time)}</div></div>`)
+      .join('');
+
+    const officers = [
+      ["President", "Officer Name"],
+      ["Vice President", "Officer Name"],
+      ["Secretary", "Officer Name"],
+      ["Treasurer", "Officer Name"],
+      ["Event Head", "Committee Name"],
+      ["Tech Lead", "Committee Name"]
+    ];
+    $("#officers").innerHTML = officers.map(([r, n]) => `
+  <div class="officer"><div class="av" aria-hidden="true">${r.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+    <div class="on">${esc(n)}</div><div class="or">${esc(r)}</div></div>`).join('');
+
+    /* gallery placeholders (SVG) + filters + lightbox */
+    function galleryTile(item, i) {
+      const palette = ["#1e90ff", "#22c55e", "#ef4444", "#3b82f6", "#facc15", "#c9d2e3"];
+      const c = palette[i % palette.length];
+      return `<svg viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="200" height="150" fill="#0f1730"/>
+    <rect width="200" height="150" fill="url(#gg${i})" opacity=".5"/>
+    <defs><linearGradient id="gg${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".7"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></linearGradient></defs>
+    <g transform="translate(100 62)" opacity=".85">${roleGlyph(["Mage","Tank / Fighter","Assassin","Marksman","Support"][i%5],c)}</g>
+    <path d="M0 150 L200 150 L200 110 Q100 90 0 110Z" fill="#050816" opacity=".5"/>
+  </svg>`;
+    }
+    const cats = ["All", ...Array.from(new Set(galleryData.map(g => g.cat)))];
+    $("#filterRow").innerHTML = cats.map((c, i) =>
+        `<button class="filter-btn" aria-pressed="${i===0?'true':'false'}" data-cat="${esc(c)}">${esc(c)}</button>`)
+      .join('');
+    const galleryEl = $("#galleryGrid");
+
+    function renderGallery(cat) {
+      galleryEl.innerHTML = galleryData.map((g, i) => (cat === "All" || g.cat === cat) ?
+        `<button class="gitem" data-idx="${i}" aria-label="Open ${esc(g.label)} preview">${galleryTile(g,i)}<span class="cap">${esc(g.label)}</span></button>` :
+        '').join('');
+    }
+    renderGallery("All");
+    $("#filterRow").addEventListener('click', e => {
+      const b = e.target.closest('.filter-btn');
+      if (!b) return;
+      $("#filterRow").querySelectorAll('.filter-btn').forEach(x => x.setAttribute('aria-pressed', 'false'));
+      b.setAttribute('aria-pressed', 'true');
+      renderGallery(b.dataset.cat);
+    });
+    const lightbox = $("#lightbox");
+    let lbTrigger = null;
+    galleryEl.addEventListener('click', e => {
+      const b = e.target.closest('.gitem');
+      if (!b) return;
+      const i = +b.dataset.idx,
+        g = galleryData[i];
+      lbTrigger = b;
+      $("#lbImg").innerHTML = galleryTile(g, i);
+      $("#lbCap").textContent = g.label + " · " + g.cat;
+      lightbox.classList.add('open');
+      document.body.classList.add('no-scroll');
+      $("#lbClose").focus();
+    });
+
+    function closeLB() {
+      lightbox.classList.remove('open');
+      document.body.classList.remove('no-scroll');
+      if (lbTrigger) lbTrigger.focus();
+    }
+    $("#lbClose").addEventListener('click', closeLB);
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) closeLB();
+    });
+
+    /* =====================================================================
+       COUNTDOWN
+       ===================================================================== */
+    const target = new Date("2026-09-29T08:00:00").getTime();
+    const pad = n => String(n).padStart(2, '0');
+    const cd = {
+      d: $("#cd-d"),
+      h: $("#cd-h"),
+      m: $("#cd-m"),
+      s: $("#cd-s")
+    };
+
+    function tick() {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        $("#countdown").style.display = 'none';
+        $("#cdLive").style.display = 'block';
+        clearInterval(timer);
+        return;
+      }
+      cd.d.textContent = pad(Math.floor(diff / 864e5));
+      cd.h.textContent = pad(Math.floor(diff % 864e5 / 36e5));
+      cd.m.textContent = pad(Math.floor(diff % 36e5 / 6e4));
+      cd.s.textContent = pad(Math.floor(diff % 6e4 / 1e3));
+    }
+    tick();
+    const timer = setInterval(tick, 1000);
+
+    /* =====================================================================
+       NAV: scroll glass, active link, hamburger, focus trap
+       ===================================================================== */
+    const header = $("#header");
+    addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 20), {
+      passive: true
+    });
+    const ham = $("#hamBtn"),
+      menu = $("#mobileMenu"),
+      menuOv = $("#menuOverlay");
+
+    function openMenu() {
+      menu.classList.add('open');
+      menuOv.classList.add('open');
+      ham.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('no-scroll');
+      $("#mmClose").focus();
+    }
+
+    function closeMenu() {
+      menu.classList.remove('open');
+      menuOv.classList.remove('open');
+      ham.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('no-scroll');
+    }
+    ham.addEventListener('click', () => ham.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu());
+    $("#mmClose").addEventListener('click', closeMenu);
+    menuOv.addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    function trap(e, c) {
+      if (e.key !== 'Tab') return;
+      const f = c.querySelectorAll('a[href],button,input,[tabindex]:not([tabindex="-1"])');
+      if (!f.length) return;
+      const first = f[0],
+        last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+    addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        if (lightbox.classList.contains('open')) closeLB();
+        else if (sheet.classList.contains('open')) closeSheet();
+        else if (menu.classList.contains('open')) closeMenu();
+      }
+      if (menu.classList.contains('open')) trap(e, menu);
+      else if (sheet.classList.contains('open')) trap(e, sheet);
+    });
+    /* active section highlight */
+    const navLinks = [...document.querySelectorAll('#desktopNav a[href^="#"]')];
+    const secIds = navLinks.map(a => a.getAttribute('href')).filter(h => h.length > 1);
+    if ('IntersectionObserver' in window) {
+      const so = new IntersectionObserver(ents => {
+        ents.forEach(en => {
+          if (en.isIntersecting) {
+            navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id));
+          }
+        });
+      }, {
+        rootMargin: '-45% 0px -50% 0px'
+      });
+      secIds.forEach(id => {
+        const el = document.querySelector(id);
+        if (el) so.observe(el);
+      });
+    }
+
+    /* =====================================================================
+       SCROLL REVEAL + PARTICLES
+       ===================================================================== */
+    const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!rm && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(ents => {
+        ents.forEach(en => {
+          if (en.isIntersecting) {
+            en.target.classList.add('in');
+            io.unobserve(en.target);
+          }
+        });
+      }, {
+        threshold: .1
+      });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } else document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+
+    (function () {
+      const c = $("#fx");
+      if (!c || rm) return;
+      const ctx = c.getContext('2d');
+      let W, H, parts = [];
+      const count = () => {
+        const w = innerWidth;
+        return w < 768 ? 16 : w < 1025 ? 30 : 56;
+      };
+
+      function resize() {
+        const p = c.parentElement.parentElement;
+        W = c.width = p.offsetWidth;
+        H = c.height = p.offsetHeight;
+        parts = Array.from({
+          length: count()
+        }, () => ({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: Math.random() * 1.7 + .4,
+          vx: (Math.random() - .5) * .24,
+          vy: (Math.random() - .5) * .24,
+          a: Math.random() * .5 + .15,
+          b: Math.random() > .5
+        }));
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        for (const p of parts) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0) p.x = W;
+          if (p.x > W) p.x = 0;
+          if (p.y < 0) p.y = H;
+          if (p.y > H) p.y = 0;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, 6.283);
+          ctx.fillStyle = `rgba(${p.b?'34,224,255':'30,144,255'},${p.a})`;
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      resize();
+      draw();
+      let rt;
+      addEventListener('resize', () => {
+        clearTimeout(rt);
+        rt = setTimeout(resize, 200);
+      });
+    })();
+
+    /* =====================================================================
+       LOADER
+       ===================================================================== */
+    addEventListener('load', () => {
+      const l = $("#loader");
+      if (l) l.classList.add('hide');
+    });
+    setTimeout(() => {
+      const l = $("#loader");
+      if (l) l.classList.add('hide');
+    }, 1800); // redundant failsafe
+  </script>
+</body>
+
+</html>
