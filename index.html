@@ -574,159 +574,186 @@
       margin-top: auto
     }
 
-    /* ================= DECORATIVE MLBB HERO BG ================= */
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden
-    }
-
-    .hero-bg .fig {
-      position: absolute;
-      bottom: -4%;
-      height: 118%;
-      opacity: .4;
-      filter: drop-shadow(0 0 40px rgba(0, 0, 0, .6))
-    }
-
-    .grid-lines {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      opacity: .5;
-      pointer-events: none;
-      background-image: linear-gradient(color-mix(in oklab, var(--electric-blue) 8%, transparent) 1px, transparent 1px),
-        linear-gradient(90deg, color-mix(in oklab, var(--electric-blue) 8%, transparent) 1px, transparent 1px);
-      background-size: 46px 46px;
-      mask-image: radial-gradient(120% 90% at 50% 0, #000, transparent 78%)
-    }
-
-    .overlay-dark {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background: rgba(4, 10, 25, .55)
-    }
-
-    /* ================= HERO ================= */
+    /* ================= HERO — 5 SLANTED MLBB PANELS ================= */
     .hero {
       position: relative;
       overflow: hidden;
       min-height: calc(100dvh - var(--header-h));
       display: flex;
-      align-items: center;
-      padding-block: clamp(1.6rem, 5vw, 3rem) clamp(2.5rem, 7vw, 4rem)
+      align-items: flex-end;
+      /* push content to bottom */
+      justify-content: center;
+      padding: 1.5rem var(--gutter) 8vh
+        /* extra bottom breathing room */
     }
 
-    #fx {
+
+    .hero-panels {
       position: absolute;
       inset: 0;
-      z-index: 1;
-      pointer-events: none
+      z-index: 0;
+      display: flex;
+      pointer-events: none;
+      overflow: hidden
     }
 
-    .hero-inner {
+    .h-panel {
+      flex: 1 1 0;
       position: relative;
-      z-index: 3;
+      overflow: hidden;
+      margin: 0 -2vw;
+      clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+      border: none;
+    }
+
+    .h-panel:first-child {
+      margin-left: -5vw;
+    }
+
+    .h-panel:last-child {
+      margin-right: -5vw;
+    }
+
+    .h-fig {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .h-fig img {
+      width: 140%;
+      max-width: none;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 15%;
+      display: block;
+    }
+
+    .h-panel:first-child {
+      margin-left: -7vw;
+    }
+
+    .h-panel:last-child {
+      margin-right: -7vw;
+    }
+
+    .h-fig {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .h-fig img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 20%;
+      /* was top center — 50% 20% centers the face better */
+      display: block;
+    }
+
+    .h-shade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(5, 8, 22, .2), rgba(5, 8, 22, .5) 55%, rgba(5, 8, 22, .88));
+      z-index: 1
+    }
+
+    .h-fw {
+      background: linear-gradient(180deg, #0f2e1c, #050d08);
+      color: var(--firewall-green)
+    }
+
+    .h-ma {
+      background: linear-gradient(180deg, #3d1515, #140808);
+      color: var(--malware-red)
+    }
+
+    .h-cm {
+      background: linear-gradient(180deg, #14233d, #050a14);
+      color: var(--mage-blue)
+    }
+
+    .h-bs {
+      background: linear-gradient(180deg, #3d360f, #141205);
+      color: var(--sniper-yellow)
+    }
+
+    .h-ps {
+      background: linear-gradient(180deg, #2a2d3d, #0a0b14);
+      color: var(--support-silver)
+    }
+
+    .hero-glass {
+      position: relative;
+      z-index: 2;
       display: grid;
-      gap: 1.1rem;
+      gap: .5rem;
+      /* tighter spacing */
+      width: min(92%, 480px);
+      /* smaller max width */
+      padding: 1rem 1.4rem;
+      /* much smaller padding */
+      background: linear-gradient(120deg, rgba(5, 8, 22, .9), rgba(11, 16, 34, .78));
+      border: 1px solid var(--line-strong);
+      border-radius: 18px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
       text-align: center;
       justify-items: center;
-      width: 100%
+      align-self: flex-end;
+      /* snap to bottom of flex parent */
+      margin-bottom: .5rem
+        /* tiny lift from edge */
     }
 
-    .hero .fig-wrap {
-      order: 7;
-      position: relative;
-      width: min(78%, 360px);
-      margin-top: .4rem
+    .hero-glass .presents.eyebrow {
+      font-size: .58rem;
+      padding: .25rem .7rem
     }
 
-    .presents {
-      order: 1
+    .hero-glass .hero-title {
+      font-size: clamp(1.6rem, 7vw, 3.2rem)
+        /* smaller than before */
     }
 
-    .hero-title {
-      order: 2;
-      font-family: "Orbitron";
-      font-weight: 900;
-      font-size: var(--hero-title);
-      line-height: .92;
-      text-wrap: balance;
-      background: linear-gradient(100deg, #fff 12%, var(--cyan) 48%, var(--electric-blue) 92%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 46px color-mix(in oklab, var(--electric-blue) 26%, transparent)
+    .hero-glass .hero-fest {
+      font-size: var(--step--1)
+        /* smaller subtitle */
     }
 
-    .hero-fest {
-      order: 3;
-      font-family: "Oxanium";
-      font-weight: 700;
-      font-size: var(--step-1);
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--gold)
+    .hero-glass .hero-tag {
+      font-size: var(--step--1);
+      letter-spacing: .1em
     }
 
-    .hero-tag {
-      order: 4;
-      font-family: "Oxanium";
-      font-weight: 600;
-      letter-spacing: .14em;
-      color: var(--ink);
-      text-transform: uppercase;
-      font-size: var(--step-0)
+    .hero-glass .hero-date {
+      font-size: var(--step--1);
+      padding: .35rem .9rem
     }
 
-    .hero-tag .sep {
-      color: var(--cyan)
+    .hero-glass .hero-community {
+      font-size: var(--step--1);
+      display: none
+        /* optional: hide to make it even smaller */
     }
 
-    .hero-date {
-      order: 5;
-      display: inline-flex;
-      align-items: center;
-      gap: .55rem;
-      font-family: "Orbitron";
-      font-weight: 700;
-      letter-spacing: .1em;
-      padding: .5rem 1.1rem;
-      border: 1px solid var(--line-strong);
-      border-radius: 999px;
-      color: var(--cyan);
-      font-size: var(--step-0);
-      background: color-mix(in oklab, var(--electric-blue) 8%, transparent)
+    .hero-glass .hero-cta {
+      gap: .5rem;
+      margin-top: .3rem
     }
 
-    .hero-community {
-      order: 6;
-      font-family: "Oxanium";
-      font-weight: 600;
-      color: var(--muted);
-      letter-spacing: .06em
-    }
-
-    .hero-cta {
-      order: 6;
-      display: flex;
-      flex-wrap: wrap;
-      gap: .75rem;
-      justify-content: center;
-      width: 100%;
-      max-width: 460px
-    }
-
-    .hero-cta .btn {
-      flex: 1 1 190px
+    .hero-glass .hero-cta .btn {
+      min-height: 40px;
+      padding: .5rem 1rem;
+      font-size: .74rem
     }
 
     .sysstatus {
-      order: 1;
       font-family: "Oxanium";
       font-size: .66rem;
       letter-spacing: .22em;
@@ -749,6 +776,129 @@
     @keyframes pulse {
       50% {
         opacity: .4
+      }
+    }
+
+    .presents.eyebrow {
+      background: linear-gradient(90deg, color-mix(in oklab, var(--cyan) 35%, transparent), transparent);
+      padding: .35rem 1rem;
+      border-left: 3px solid var(--cyan);
+      clip-path: polygon(0 0, 100% 0, 96% 100%, 0 100%);
+      display: inline-block
+    }
+
+    .hero-title {
+      font-family: "Orbitron";
+      font-weight: 900;
+      font-size: var(--hero-title);
+      line-height: .92;
+      text-wrap: balance;
+      background: linear-gradient(100deg, #fff 12%, var(--cyan) 48%, var(--electric-blue) 92%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 46px color-mix(in oklab, var(--electric-blue) 26%, transparent)
+    }
+
+    .hero-fest {
+      font-family: "Oxanium";
+      font-weight: 700;
+      font-size: var(--step-1);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--gold)
+    }
+
+    .hero-tag {
+      font-family: "Oxanium";
+      font-weight: 600;
+      letter-spacing: .14em;
+      color: var(--ink);
+      text-transform: uppercase;
+      font-size: var(--step-0)
+    }
+
+    .hero-tag .sep {
+      color: var(--cyan)
+    }
+
+    .hero-date {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      font-family: "Orbitron";
+      font-weight: 700;
+      letter-spacing: .1em;
+      padding: .5rem 1.1rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      color: var(--cyan);
+      font-size: var(--step-0);
+      background: color-mix(in oklab, var(--electric-blue) 8%, transparent)
+    }
+
+    .hero-community {
+      font-family: "Oxanium";
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .06em
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      justify-content: center;
+      width: 100%;
+      max-width: 460px
+    }
+
+    .hero-cta .btn {
+      flex: 1 1 190px
+    }
+
+    @media (max-width: 768px) {
+      .h-panel {
+        margin: 0 -3vw;
+        clip-path: polygon(8% 0, 100% 0, 92% 100%, 0% 100%);
+      }
+
+      .h-panel:first-child {
+        margin-left: -4vw;
+      }
+
+      .h-fig svg {
+        height: 65vh
+      }
+
+      .hero-glass {
+        padding: 1.4rem
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-panels {
+        opacity: .6
+      }
+
+      .h-fig svg {
+        height: 58vh
+      }
+
+      .h-panel:first-child,
+      .h-panel:last-child {
+        margin: 0 -2.5vw
+      }
+    }
+
+    @media (max-height: 520px) and (orientation: landscape) {
+      .hero {
+        min-height: auto;
+        padding-block: 2rem
+      }
+
+      .h-fig svg {
+        height: 52vh
       }
     }
 
@@ -2206,9 +2356,7 @@
         max-width: 640px
       }
 
-      .hero .fig-wrap {
-        width: min(58%, 420px)
-      }
+
 
       .sheet {
         left: 50%;
@@ -2268,57 +2416,14 @@
         display: none
       }
 
-      .hero {
-        min-height: calc(100dvh - var(--header-h))
-      }
 
-      .hero-inner {
-        grid-template-columns: 1.1fr .9fr;
-        text-align: left;
-        justify-items: start;
-        align-items: center;
-        column-gap: 2.5rem;
-        row-gap: 1rem
-      }
-
-      .hero .fig-wrap {
-        order: 0;
-        grid-row: 1 / span 8;
-        grid-column: 2;
-        width: 100%;
-        max-width: 440px;
-        justify-self: center;
-        margin: 0
-      }
-
-      .hero-inner>*:not(.fig-wrap) {
-        grid-column: 1
-      }
-
-      .hero-cta {
-        justify-content: flex-start
-      }
-
-      .hero-date,
-      .sysstatus {
-        align-self: start
-      }
 
       .acc-list {
         grid-template-columns: repeat(3, 1fr)
       }
     }
 
-    @media (max-height:520px) and (orientation:landscape) {
-      .hero {
-        min-height: auto;
-        padding-block: 1.2rem 2rem
-      }
-
-      .hero .fig-wrap {
-        width: min(40%, 260px)
-      }
-    }
+    @media (max-height:520px) and (orientation:landscape) {}
 
     @media (prefers-reduced-motion:reduce) {
       * {
@@ -2457,28 +2562,67 @@
   <main>
     <!-- ============ HERO ============ -->
     <section class="hero" id="home" aria-label="Event hero">
-      <div class="hero-bg" aria-hidden="true">
-        <div class="fig" id="heroFig" style="right:-6%"></div>
-        <div class="fig" id="heroFig2" style="left:-10%;opacity:.28"></div>
-      </div>
-      <div class="grid-lines" aria-hidden="true"></div>
-      <div class="overlay-dark" aria-hidden="true"></div>
-      <canvas id="fx" aria-hidden="true"></canvas>
-      <div class="wrap">
-        <div class="hero-inner">
-          <span class="sysstatus"><span class="dot"></span>System Status: Event Ready</span>
-          <p class="eyebrow presents">Information Technology Society Presents</p>
-          <h1 class="hero-title">CICS Battle<br>of Legends</h1>
-          <p class="hero-fest">Information Technology Skills Festival 2026</p>
-          <p class="hero-tag">Code <span class="sep">/</span> Create <span class="sep">/</span> Compete <span
-              class="sep">/</span> Connect</p>
-          <span class="hero-date">◆ September 29, 2026</span>
-          <p class="hero-community">Five Teams. One CICS Community.</p>
-          <div class="hero-cta">
-            <a class="btn" href="#activities">Explore Activities</a>
-            <a class="btn ghost" href="#teams">Meet the Teams</a>
+      <div class="hero-panels" aria-hidden="true">
+
+        <!-- Panel 1: Firewall Fighters -->
+        <div class="h-panel h-fw">
+          <div class="h-fig">
+            <!-- REPLACE SRC: Firewall Fighters hero image -->
+            <img src="leo.jpg" alt="Firewall Fighters hero" loading="eager">
           </div>
-          <div class="fig-wrap" id="heroMainFig"></div>
+          <div class="h-shade"></div>
+        </div>
+
+        <!-- Panel 2: Malware Assassins -->
+        <div class="h-panel h-ma">
+          <div class="h-fig">
+            <!-- REPLACE SRC: Malware Assassins hero image -->
+            <img src="hayabusa.png" alt="Malware Assassins hero" loading="eager">
+          </div>
+          <div class="h-shade"></div>
+        </div>
+
+        <!-- Panel 3: Code Mages -->
+        <div class="h-panel h-cm">
+          <div class="h-fig">
+            <!-- REPLACE SRC: Code Mages hero image -->
+            <img src="xavier.jpg" alt="Code Mages hero" loading="eager">
+          </div>
+          <div class="h-shade"></div>
+        </div>
+
+        <!-- Panel 4: Bug Snipers -->
+        <div class="h-panel h-bs">
+          <div class="h-fig">
+            <!-- REPLACE SRC: Bug Snipers hero image -->
+            <img src="lesley.jpg" alt="Bug Snipers hero" loading="eager">
+          </div>
+          <div class="h-shade"></div>
+        </div>
+
+        <!-- Panel 5: Patch Supporters -->
+        <div class="h-panel h-ps">
+          <div class="h-fig">
+            <!-- REPLACE SRC: Patch Supporters hero image -->
+            <img src="rafaela.jpeg" alt="Patch Supporters hero" loading="eager">
+          </div>
+          <div class="h-shade"></div>
+        </div>
+
+      </div>
+
+      <div class="hero-glass">
+        <span class="sysstatus"><span class="dot"></span>System Status: Event Ready</span>
+        <p class="eyebrow presents">Information Technology Society Presents</p>
+        <h1 class="hero-title">CICS Battle<br>of Legends</h1>
+        <p class="hero-fest">Information Technology Skills Festival 2026</p>
+        <p class="hero-tag">Code <span class="sep">/</span> Create <span class="sep">/</span> Compete <span
+            class="sep">/</span> Connect</p>
+        <span class="hero-date">◆ September 29, 2026</span>
+        <p class="hero-community">Five Teams. One CICS Community.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#activities">Explore Activities</a>
+          <a class="btn ghost" href="#teams">Meet the Teams</a>
         </div>
       </div>
     </section>
@@ -3557,9 +3701,7 @@
     /* =====================================================================
        RENDER: hero decorative figures
        ===================================================================== */
-    $("#heroMainFig").innerHTML = heroFigure("#22e0ff", "Mage");
-    $("#heroFig").innerHTML = heroFigure("#1e90ff", "Tank / Fighter");
-    $("#heroFig2").innerHTML = heroFigure("#3b82f6", "Assassin");
+
     $("#aboutFig").innerHTML = heroFigure("#3b82f6", "Mage");
     $("#aboutFig").style.height = "80%";
     $("#actFig").innerHTML = heroFigure("#22e0ff", "Marksman");
@@ -3628,7 +3770,7 @@
     <div class="roster-label">Faculty List</div>
     <ul class="faculty-list">
       ${t.faculty.map(f=>`<li><span class="av">${esc(f.replace(/[^A-Za-z0-9]/g,'').slice(0,2).toUpperCase())}</span>
-        <span><span class="fn">${esc(f)}</span><br><span class="fr">Faculty Member · Department TBA</span></span></li>`).join('')}
+        <span><span class="fn">${esc(f)}</span><br><span class="fr">Faculty Member · Department CICS</span></span></li>`).join('')}
     </ul>
   </div>`;
     }
