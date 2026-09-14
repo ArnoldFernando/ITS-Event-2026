@@ -2356,8 +2356,6 @@
         max-width: 640px
       }
 
-
-
       .sheet {
         left: 50%;
         top: 50%;
@@ -2391,6 +2389,42 @@
       }
     }
 
+    /* Hero: tablets and below */
+    @media (max-width: 1024px) {
+      .hero {
+        min-height: calc(100dvh - var(--header-h));
+        padding: 1rem var(--gutter) 10vh
+      }
+
+      .h-panel {
+        margin: 0 -3vw;
+        clip-path: polygon(6% 0, 100% 0, 94% 100%, 0% 100%)
+      }
+
+      .h-panel:first-child {
+        margin-left: -4vw
+      }
+
+      .h-panel:last-child {
+        margin-right: -4vw
+      }
+
+      .h-fig img {
+        width: 160%;
+        object-position: 45% 12%
+      }
+
+      .hero-glass {
+        width: min(94%, 420px);
+        padding: .9rem 1.1rem;
+        gap: .35rem
+      }
+
+      .hero-glass .hero-title {
+        font-size: clamp(1.5rem, 6vw, 2.6rem)
+      }
+    }
+
     @media (min-width:1000px) {
 
       .team-grid,
@@ -2416,14 +2450,130 @@
         display: none
       }
 
-
-
       .acc-list {
         grid-template-columns: repeat(3, 1fr)
       }
     }
 
-    @media (max-height:520px) and (orientation:landscape) {}
+    /* Hero: large phones */
+    @media (max-width: 640px) {
+      .hero {
+        min-height: calc(100dvh - var(--header-h));
+        padding: .8rem var(--gutter) 12vh
+      }
+
+      .h-panel {
+        margin: 0 -3.5vw;
+        clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%)
+      }
+
+      .h-panel:first-child {
+        margin-left: -5vw
+      }
+
+      .h-panel:last-child {
+        margin-right: -5vw
+      }
+
+      .h-fig img {
+        width: 220%;
+        object-position: 42% 10%
+      }
+
+      .hero-glass {
+        width: min(96%, 360px);
+        padding: .7rem 1rem;
+        border-radius: 14px;
+        gap: .25rem
+      }
+
+      .hero-glass .presents.eyebrow {
+        font-size: .52rem;
+        padding: .2rem .55rem
+      }
+
+      .hero-glass .hero-title {
+        font-size: clamp(1.35rem, 7vw, 2rem)
+      }
+
+      .hero-glass .hero-fest {
+        font-size: .68rem
+      }
+
+      .hero-glass .hero-tag {
+        font-size: .62rem;
+        letter-spacing: .08em
+      }
+
+      .hero-glass .hero-date {
+        font-size: .65rem;
+        padding: .3rem .75rem
+      }
+
+      .hero-glass .hero-cta .btn {
+        min-height: 36px;
+        font-size: .68rem;
+        padding: .4rem .8rem
+      }
+    }
+
+    /* Hero: very small phones */
+    @media (max-width: 380px) {
+      .h-panel {
+        margin: 0 -4vw
+      }
+
+      .h-fig img {
+        width: 260%;
+        object-position: 40% 8%
+      }
+
+      .hero-glass {
+        width: 100%;
+        padding: .6rem .85rem
+      }
+
+      .hero-glass .hero-title {
+        font-size: 1.25rem
+      }
+    }
+
+    /* Hero: landscape short screens */
+    @media (max-height: 520px) and (orientation: landscape) {
+      .hero {
+        min-height: auto;
+        padding-block: 1rem 6vh
+      }
+
+      .h-fig img {
+        height: 120%;
+        object-position: 50% 5%
+      }
+
+      .hero-glass {
+        width: min(70%, 480px);
+        padding: .6rem 1rem;
+        gap: .3rem
+      }
+
+      .hero-glass .hero-title {
+        font-size: clamp(1.3rem, 5vw, 1.8rem)
+      }
+
+      .hero-glass .hero-fest,
+      .hero-glass .hero-tag,
+      .hero-glass .hero-date {
+        font-size: .65rem
+      }
+    }
+
+    /* Hero: very wide screens */
+    @media (min-width: 1600px) {
+      .h-fig img {
+        width: 120%;
+        object-position: 50% 18%
+      }
+    }
 
     @media (prefers-reduced-motion:reduce) {
       * {
@@ -2612,13 +2762,13 @@
       </div>
 
       <div class="hero-glass">
-        <span class="sysstatus"><span class="dot"></span>System Status: Event Ready</span>
+        <!-- <span class="sysstatus"><span class="dot"></span>System Status: Event Ready</span> -->
         <p class="eyebrow presents">Information Technology Society Presents</p>
         <h1 class="hero-title">CICS Battle<br>of Legends</h1>
         <p class="hero-fest">Information Technology Skills Festival 2026</p>
         <p class="hero-tag">Code <span class="sep">/</span> Create <span class="sep">/</span> Compete <span
             class="sep">/</span> Connect</p>
-        <span class="hero-date">◆ September 29, 2026</span>
+        <span class="hero-date">◆ September 29-30 2026</span>
         <p class="hero-community">Five Teams. One CICS Community.</p>
         <div class="hero-cta">
           <a class="btn" href="#activities">Explore Activities</a>
@@ -2940,7 +3090,7 @@
         faculty: ["Ma'am Eden", "Sir Gimbert", "Sir Michael"],
         /* EDIT SECTION NAMES BELOW */
         students: [{
-            section: "Section 1",
+            section: "List 1",
             /* EDIT SECTION NAME */
             names: [
               "Tambia Cynthia", "Alarma John Lloyd", "Domingo Mark Jean Klei", "Mayormita Krisham Fame",
@@ -2951,7 +3101,7 @@
             ]
           },
           {
-            section: "Section 2",
+            section: "List 2",
             /* EDIT SECTION NAME */
             names: [
               "Acierta John Benedict", "Abata April Jane", "Palino Aubrey", "Corpuz Angela Mae",
@@ -2962,7 +3112,7 @@
             ]
           },
           {
-            section: "Section 3",
+            section: "List 3",
             /* EDIT SECTION NAME */
             names: [
               "Relos Mary Frances", "Villena Jhon Paul", "Galzote Angilyn", "Ramos Jayvie",
@@ -2973,7 +3123,7 @@
             ]
           },
           {
-            section: "Section 4",
+            section: "List 4",
             /* EDIT SECTION NAME */
             names: [
               "Lorena Bernadine", "Villanueva Mark Jake", "Bayota Ediemar", "Guitang Mardy",
@@ -2984,7 +3134,7 @@
             ]
           },
           {
-            section: "Section 5",
+            section: "List 5",
             /* EDIT SECTION NAME */
             names: [
               "Conceja Lea", "Castillo Mark Dave", "Aurelallao Gabriel Abby", "Bacaycay Trixie",
@@ -2995,7 +3145,7 @@
             ]
           },
           {
-            section: "Section 6",
+            section: "List 6",
             /* EDIT SECTION NAME */
             names: [
               "Manuel James-Aarhon", "Reyes Rhea Mae", "Jasmin Reynald Jr.", "Batalla Randy Jr.",
@@ -3006,7 +3156,7 @@
             ]
           },
           {
-            section: "Section 7",
+            section: "List 7",
             /* EDIT SECTION NAME */
             names: [
               "Agluba Zarrel", "Ruamo Charleah", "Fajardo Reyna Joy", "De Guzman Ederlyn",
@@ -3017,7 +3167,7 @@
             ]
           },
           {
-            section: "Section 8",
+            section: "List 8",
             /* EDIT SECTION NAME */
             names: [
               "Regalado Everngerald", "Samoy Mark Jimboy", "Dumlan Joel Jr.", "Bitales Gerald",
@@ -3040,7 +3190,7 @@
         faculty: ["Ma'am Vicky", "Sir Marlex", "Sir Rj"],
         /* EDIT SECTION NAMES BELOW */
         students: [{
-            section: "Section 1",
+            section: "List 1",
             /* EDIT SECTION NAME */
             names: [
               "Donato Mark Jaret", "Jose Rogie", "Baylon Eliseo", "Bartolome Mark Jhon",
@@ -3051,7 +3201,7 @@
             ]
           },
           {
-            section: "Section 2",
+            section: "List 2",
             /* EDIT SECTION NAME */
             names: [
               "Cuaresma Curtis", "Ancheta James", "Juan Crizhelle", "Lucena Christian Jhemail",
@@ -3062,7 +3212,7 @@
             ]
           },
           {
-            section: "Section 3",
+            section: "List 3",
             /* EDIT SECTION NAME */
             names: [
               "Grume Jhon Smith", "Ujano Danika Mae", "Capinia Romel Jr.", "Ometer John Nathaniell",
@@ -3073,7 +3223,7 @@
             ]
           },
           {
-            section: "Section 4",
+            section: "List 4",
             /* EDIT SECTION NAME */
             names: [
               "Tagayuna Hendrich Bre...", "Pabua Rhean Joy", "Antonio Myhbie", "Macadangdang Lea",
@@ -3084,7 +3234,7 @@
             ]
           },
           {
-            section: "Section 5",
+            section: "List 5",
             /* EDIT SECTION NAME */
             names: [
               "Valiente Eric", "Corpuz Cherry Ann", "Durwin Allan Jay", "Castillo Lovely Mae",
@@ -3095,7 +3245,7 @@
             ]
           },
           {
-            section: "Section 6",
+            section: "List 6",
             /* EDIT SECTION NAME */
             names: [
               "Villanueva Princess Joy", "Narag MJ", "Salamero Kristalyn Joy", "Donato Lawrence",
@@ -3106,7 +3256,7 @@
             ]
           },
           {
-            section: "Section 7",
+            section: "List 7",
             /* EDIT SECTION NAME */
             names: [
               "Bentillo Lloyd Kenneth", "Asuncion Jerene", "Maata Kristella Mae", "Tamba Rachelle Ann",
@@ -3117,7 +3267,7 @@
             ]
           },
           {
-            section: "Section 8",
+            section: "List 8",
             /* EDIT SECTION NAME */
             names: [
               "Hernando Rubie Anne", "Melad Alan", "Abugan Dhesiree", "Bentolao Jazzlynn Faye",
@@ -3141,7 +3291,7 @@
         faculty: ["Sir Arnold", "Sir Sammy", "Ma'am Donna"],
         /* EDIT SECTION NAMES BELOW */
         students: [{
-            section: "Section 1",
+            section: "List 1",
             /* EDIT SECTION NAME */
             names: [
               "Manuela Durcaz", "Baloran Sheena Marie", "Fabul John Alfred", "Pascual Mark John",
@@ -3152,7 +3302,7 @@
             ]
           },
           {
-            section: "Section 2",
+            section: "List 2",
             /* EDIT SECTION NAME */
             names: [
               "Papuigian Precious-Joy", "Lapitan Jaylyn =", "Baingan Brave", "Villanueva Jiezhel",
@@ -3163,7 +3313,7 @@
             ]
           },
           {
-            section: "Section 3",
+            section: "List 3",
             /* EDIT SECTION NAME */
             names: [
               "Pillos Frederick", "Tabuyo Leeneth", "Manuel Yvan", "Escoto Mycko Jmiel",
@@ -3174,7 +3324,7 @@
             ]
           },
           {
-            section: "Section 4",
+            section: "List 4",
             /* EDIT SECTION NAME */
             names: [
               "Zaragosa Chezaira", "Araguero Cristine Joyce", "Bareno Sanshine", "Ramos John Christian",
@@ -3185,7 +3335,7 @@
             ]
           },
           {
-            section: "Section 5",
+            section: "List 5",
             /* EDIT SECTION NAME */
             names: [
               "Ingayen J-lord", "Vidad Rolly Jr.", "Conceja Vhaness Jenni...", "Seminiano Rhian Joy",
@@ -3196,7 +3346,7 @@
             ]
           },
           {
-            section: "Section 6",
+            section: "List 6",
             /* EDIT SECTION NAME */
             names: [
               "Garces Chrislyn Jean", "Catral Judy Rose", "Vergara Jhon Emil", "Del Rosario Princess An...",
@@ -3207,7 +3357,7 @@
             ]
           },
           {
-            section: "Section 7",
+            section: "List 7",
             /* EDIT SECTION NAME */
             names: [
               "Asuncion Romar", "Ubarre Richelle", "Ternoro Mc Larence", "Adriano Mary Jane",
@@ -3218,7 +3368,7 @@
             ]
           },
           {
-            section: "Section 8",
+            section: "List 8",
             /* EDIT SECTION NAME */
             names: [
               "Alberto Kent Jordan", "Bautista Janice", "Valentin Celine", "Aguirre Ryan Dave",
@@ -3240,7 +3390,7 @@
         faculty: ["Sir Fernan", "Ma'am Rara", "Sir Jack"],
         /* EDIT SECTION NAMES BELOW */
         students: [{
-            section: "Section 1",
+            section: "List 1",
             /* EDIT SECTION NAME */
             names: [
               "Agubo Charlz Jainus", "Ugas John Lloyd", "Carlos Cherry Anne", "Ilarde Lyka Marie",
@@ -3251,7 +3401,7 @@
             ]
           },
           {
-            section: "Section 2",
+            section: "List 2",
             /* EDIT SECTION NAME */
             names: [
               "Barien Justine Lei", "Tabunian Novidaine", "Rumbaoa Prince Andy", "Corpuz Shaoyan Joel",
@@ -3262,7 +3412,7 @@
             ]
           },
           {
-            section: "Section 3",
+            section: "List 3",
             /* EDIT SECTION NAME */
             names: [
               "Bautista Erwin John", "Conseja Marc Chester", "Tabangcura Jhon-rich", "Villegas Chary Dele",
@@ -3273,7 +3423,7 @@
             ]
           },
           {
-            section: "Section 4",
+            section: "List 4",
             /* EDIT SECTION NAME */
             names: [
               "Burgos Freddie", "Naidas Alicia Keith", "Gonzales April Joy", "Gonzaga Janna Margar...",
@@ -3284,7 +3434,7 @@
             ]
           },
           {
-            section: "Section 5",
+            section: "List 5",
             /* EDIT SECTION NAME */
             names: [
               "Urcia Jerome", "Alares Trisha", "Aresta Maria Gladies", "Corpuz Michelle",
@@ -3295,7 +3445,7 @@
             ]
           },
           {
-            section: "Section 6",
+            section: "List 6",
             /* EDIT SECTION NAME */
             names: [
               "Rosal Joy Ann = (?", "Coloma Jhon Zhen Paul", "Clavero Jordan", "Lorenzo Reiznel",
@@ -3306,7 +3456,7 @@
             ]
           },
           {
-            section: "Section 7",
+            section: "List 7",
             /* EDIT SECTION NAME */
             names: [
               "Salvacion Zyroel", "Palaota Nova", "Soria Dominic", "Castro Kiara O",
@@ -3317,7 +3467,7 @@
             ]
           },
           {
-            section: "Section 8",
+            section: "List 8",
             /* EDIT SECTION NAME */
             names: [
               "Acebedo Eliza", "De Gracia John Rehl", "Calina WeselyJr. (7", "Dagulio, Rodrigo Jr.",
@@ -3340,7 +3490,7 @@
         faculty: ["Sir Mark", "Sir Cid", "Sir Doms"],
         /* EDIT SECTION NAMES BELOW */
         students: [{
-            section: "Section 1",
+            section: "List 1",
             /* EDIT SECTION NAME */
             names: [
               "Orenia Maribell", "Alicuben Grethel", "Agurilla Jomel", "Rodrigo Lance",
@@ -3351,7 +3501,7 @@
             ]
           },
           {
-            section: "Section 2",
+            section: "List 2",
             /* EDIT SECTION NAME */
             names: [
               "Dela Cruz Neslyn", "Cabinti Christian Jerry", "Aragon Katrina Joy", "Bacuyag Divine Mea",
@@ -3362,7 +3512,7 @@
             ]
           },
           {
-            section: "Section 3",
+            section: "List 3",
             /* EDIT SECTION NAME */
             names: [
               "Mecate Amy", "Inian Princess Tresha", "Orteza Rainiel", "Cabildo Jhon Lester",
@@ -3373,7 +3523,7 @@
             ]
           },
           {
-            section: "Section 4",
+            section: "List 4",
             /* EDIT SECTION NAME */
             names: [
               "Dalaponas Charmelle", "Bailon Mare Dominic", "Vidad Christin Mae", "Rubino Rosevin",
@@ -3384,7 +3534,7 @@
             ]
           },
           {
-            section: "Section 5",
+            section: "List 5",
             /* EDIT SECTION NAME */
             names: [
               "Olivas Mike", "Relos Mark Kevin", "Baniel John", "Manuel Ralph Lawrence",
@@ -3395,7 +3545,7 @@
             ]
           },
           {
-            section: "Section 6",
+            section: "List 6",
             /* EDIT SECTION NAME */
             names: [
               "Cacalda Brenda", "Florido Aaron", "Esteban Brenda", "Sotelo Harry",
@@ -3406,7 +3556,7 @@
             ]
           },
           {
-            section: "Section 7",
+            section: "List 7",
             /* EDIT SECTION NAME */
             names: [
               "Bitagun Danica", "Galura Paul Andrei", "Gabrino Rodleen", "Bueno Joshua",
@@ -3417,7 +3567,7 @@
             ]
           },
           {
-            section: "Section 8",
+            section: "List 8",
             /* EDIT SECTION NAME */
             names: [
               "Bumagat Monhel", "Reynon Francis J", "Tugade Mariden", "Canapi Jhon Christian",
@@ -3514,54 +3664,54 @@
       {
         icon: "pin",
         label: "Venue",
-        value: "TBA",
+        value: "FS Zamora Hall",
         tba: true
       },
       {
         icon: "clock",
         label: "Start Time",
-        value: "TBA",
+        value: "7:30 AM",
         tba: true
       },
       {
         icon: "reg",
         label: "Registration",
-        value: "TBA",
+        value: "ITS Officers",
         tba: true
       },
       {
         icon: "dress",
         label: "Dress Code",
-        value: "TBA",
+        value: "Based on Team Color",
         tba: true
       },
       {
         icon: "note",
         label: "Reminders",
-        value: "TBA",
+        value: "Prepare your Cheers and Yells! Bring your own water and snacks. Follow the rules and regulations.",
         tba: true
       }
     ];
 
     const programme = [{
         phase: "Registration",
-        time: "Time: TBA"
+        time: "Time: 7:00 AM - 7:30 AM"
       },
       {
         phase: "Opening Ceremony",
-        time: "Time: TBA"
+        time: "Time: 8:00 AM"
       },
       {
         phase: "Team Introduction",
-        time: "Time: TBA"
+        time: "Time: Onwards"
       },
       {
         phase: "Programming Activity",
-        time: "Time: TBA"
+        time: "Time: Onwards"
       },
       {
         phase: "Data Encoding",
-        time: "Time: TBA"
+        time: "Time: Onwards"
       },
       {
         phase: "Static Web Development",
@@ -3569,19 +3719,19 @@
       },
       {
         phase: "Other IT Activities",
-        time: "Time: TBA"
+        time: "Time: Onwards"
       },
       {
         phase: "Break",
-        time: "Time: TBA"
+        time: "Time: Onwards"
       },
       {
         phase: "Continuation of Activities",
-        time: "Time: TBA"
+        time: "Time: Onwards"
       },
       {
         phase: "Awarding / Recognition",
-        time: "Time: TBA"
+        time: "Time: Onwards"
       },
       {
         phase: "Closing Ceremony",
@@ -3993,12 +4143,19 @@
       .join('');
 
     const officers = [
-      ["President", "Officer Name"],
-      ["Vice President", "Officer Name"],
-      ["Secretary", "Officer Name"],
-      ["Treasurer", "Officer Name"],
-      ["Event Head", "Committee Name"],
-      ["Tech Lead", "Committee Name"]
+      ["President", "Tanisha Rhose D. Cabal"],
+      ["Vice President", "Riza Mae .B Nebab"],
+      ["Secretary", "Dhesiree Anne Abugan"],
+      ["Treasurer", "Francis Ann C. Pascua"],
+      ["Event Head", "Crizel Kaya S. Balasa"],
+      ["Tech Lead", "Garlhean Nova L. Valera"],
+      ["Project Coordinator", "Jesryl D. Tenorio"],
+      ["Project Coordinator", "Jhon Smith G. Grume"],
+      ["Programming Rep", "MaryJane Consumido"],
+      ["MultiMedia Rep", "Mark Jayson G. Drillon"],
+      ["Networking Rep", "John Lawrence A. Collado"],
+      ["Database Rep", "Charles J. Molina"],
+      ["Programming Rep", "MaryJane Consumido"],
     ];
     $("#officers").innerHTML = officers.map(([r, n]) => `
   <div class="officer"><div class="av" aria-hidden="true">${r.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
